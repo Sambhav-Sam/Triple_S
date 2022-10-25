@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CUPIT</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="user signinBx">
+          <div class="imgBx">
+            <img
+              src="https://images.unsplash.com/photo-1627856013091-fed6e4e30025?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlkZW8lMjBnYW1lc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+              alt=""
+            />
+          </div>
+          <div class="formBx">
+            <form>
+              <h2>Sign In</h2>
+              <input type="text" placeholder="Username">
+              <input type="password" placeholder="Password">
+              <input type="submit" value="Login">
+              <p class="signup">
+                don't have an account?
+                <a href="#" onclick="toggleForm()">Sign up.</a>
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <div class="user signupBx">
+          <div class="formBx">
+            <form>
+              <h2>Create an account</h2>
+              <input type="text" placeholder="Username">
+              <input type="text" placeholder="Email Address">
+              <input type="password" placeholder="Create Password">
+              <input type="password" placeholder="Confirm Password">
+                <input type="submit" value="Sign Up">
+              <p class="signup">
+                Already have an account?
+                <a href="#" onclick="toggleForm()">Sign in.</a>
+              </p>
+            </form>
+          </div>
+          <div class="imgBx">
+            <img
+              src="https://images.unsplash.com/photo-1627855437292-7efeee237b12?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZpZGVvJTIwZ2FtZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <script> 
+        function toggleForm() {
+          section = document.querySelector('section');
+          container = document.querySelector('.container');
+          container.classList.toggle('active');
+          section.classList.toggle('active');
+      }
+    </script>
+  </body>
+</html>
