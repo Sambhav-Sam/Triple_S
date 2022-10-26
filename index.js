@@ -10,6 +10,11 @@ const cookieParser = require("cookie-parser");
 //requiring database dependencies
 const User = require("./src/models/userauth");
 
+//requiring internal dependencies
+const createToken = require("./routes/auth/createtoken");
+const isAuth = require("./routes/auth/isauth");
+const Auth = require("./routes/auth/login");
+
 
 const app = express();
 app.use(express.static("public"));
@@ -20,9 +25,8 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 
-//requiring internal dependencies
-const createToken = require("./routes/auth/createtoken");
-const isAuth = require("./routes/auth/isauth");
+//-----------------------------------------
+app.use("/auth",Auth);
 
 
 app.use(session({
