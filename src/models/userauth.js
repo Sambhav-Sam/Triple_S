@@ -1,6 +1,5 @@
 require("../db/connection");
 const mongoose=require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
     username : {
@@ -12,14 +11,18 @@ const userSchema = new mongoose.Schema({
         required : true,
         unique : true
     },
+    salt :{
+        type : String
+    },
+    hash :{
+        type : String
+    },
     tokens : [{
         token : {
             type : String
         }
     }]
 });
-
-userSchema.plugin(passportLocalMongoose);
 
 //model
 const User = new mongoose.model("User",userSchema);

@@ -2,8 +2,6 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require("express-session");
-const passport = require("passport");
 const cookieParser = require("cookie-parser");
 
 
@@ -13,6 +11,8 @@ const User = require("./src/models/userauth");
 //requiring internal dependencies
 const createToken = require("./routes/auth/createtoken");
 const isAuth = require("./routes/auth/isauth");
+const createUser= require("./src/middleware/authentication/createuser");
+const findUser = require("./src/middleware/authentication/finduser");
 const Auth = require("./routes/auth/login");
 
 
@@ -29,22 +29,11 @@ app.use(cookieParser());
 app.use("/auth",Auth);
 
 
-app.use(session({
-    secret: process.env.SECRET2,
-    resave: false,
-    saveUninitialized: false
-}));
-
-// app.use(passport.authenticate('session'));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-
 //routes--------------------------------------------------
+app.get("/test",(req,res)=>{
+    createUser("sam","sam@jkj","sambhav");
+});
+
 app.get("/login", (req, res) => {
     res.render("login_registeration/login.ejs");
 });
@@ -68,7 +57,7 @@ app.post("/register", async (req, res) => {
     try {
         const { username, email, password, confirmPassword } = req.body;
         if (password === confirmPassword) {
-            const user = await User.register({ username: username, email: email }, password);
+            const user = await createUser(username,email,password);
             const token = await createToken(user._id, user);
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 600000),
@@ -85,26 +74,21 @@ app.post("/register", async (req, res) => {
         console.log(error);
         res.status(400).send(error);
     }
-
 });
 
 app.post("/login", async (req, res) => {
     try {
         const{email,password}=req.body;
-
-        const user = new User({
-            username : "j",
-            email : email,
-            password : password
-        });
-
-        req.login(user,function(err){
-            if(err){
-                console.log(err)
-            }else{
-                console.log("user found");
-            }
-        });
+        const result = await findUser(email,password,res);
+        if(result.status)
+        {
+            res.status(result.statuscode).redirect("/working");
+        }
+        else
+        {
+            res.status(result.statuscode).redirect("/login");
+        }
+        
 
     } catch (error) {
         console.log(error);
