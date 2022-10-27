@@ -13,7 +13,7 @@ const createToken = require("./routes/auth/createtoken");
 const isAuth = require("./routes/auth/isauth");
 const createUser= require("./src/middleware/authentication/createuser");
 const findUser = require("./src/middleware/authentication/finduser");
-const Auth = require("./routes/auth/login");
+const Auth = require("./routes/auth/auth");
 
 
 const app = express();
@@ -31,7 +31,7 @@ app.use("/auth",Auth);
 
 //routes--------------------------------------------------
 app.get("/test",(req,res)=>{
-    createUser("sam","sam@jkj","sambhav");
+    res.render("login_registeration/verifyemail.ejs",{username:"hello",email:"samabhavjkjk-"});
 });
 
 app.get("/login", (req, res) => {
