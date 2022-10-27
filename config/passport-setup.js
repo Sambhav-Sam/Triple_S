@@ -10,5 +10,6 @@ passport.use(new googleStrategy({
 },(accessToken,refreshToken,profile,done)=>{
     //passport callback function
     console.log(profile);
+    done(null,profile);
 })
 )

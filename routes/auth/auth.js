@@ -6,7 +6,7 @@ const login = require("./login");
 const verify = require("./verify");
 
 
-router.use("/login",login);
+router.use("/google",login);
 router.use("/verifyemail",verify);
 
 

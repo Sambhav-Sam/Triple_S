@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema({
     hash :{
         type : String
     },
+    googleid :{
+        type : String
+    },
     tokens : [{
         token : {
             type : String
