@@ -5,33 +5,50 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 
+
+
 //requiring database dependencies
 const User = require("./src/models/userauth");
 
 //requiring internal dependencies
 const createToken = require("./routes/auth/createtoken");
 const isAuth = require("./routes/auth/isauth");
-const createUser= require("./src/middleware/authentication/createuser");
+const createUser = require("./src/middleware/authentication/createuser");
 const findUser = require("./src/middleware/authentication/finduser");
 const Auth = require("./routes/auth/auth");
+const api = require("./src/api/api");
 
 
 const app = express();
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cookieParser());
 
-
 //-----------------------------------------
-app.use("/auth",Auth);
+app.use("/auth", Auth);
+app.use("/api",api);
+app.use("/userdetails",require("./routes/user/userdetails"));
 
 
 //routes--------------------------------------------------
-app.get("/test",(req,res)=>{
-    res.render("login_registeration/verifyemail.ejs",{username:"hello",email:"samabhavjkjk-"});
+
+app.get("/test", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        if (user) {
+            res.status(200).render("login_registeration/info.ejs");
+        }
+        else {
+            res.status(401).send("bad request");
+        }
+    }
+    catch (err) {
+        res.status(401).send(err);
+    }
 });
 
 app.get("/login", (req, res) => {
@@ -57,7 +74,7 @@ app.post("/register", async (req, res) => {
     try {
         const { username, email, password, confirmPassword } = req.body;
         if (password === confirmPassword) {
-            const user = await createUser(username,email,password);
+            const user = await createUser(username, email, password);
             const token = await createToken(user._id, user);
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 600000),
@@ -78,17 +95,15 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        const{email,password}=req.body;
-        const result = await findUser(email,password,res);
-        if(result.status)
-        {
+        const { email, password } = req.body;
+        const result = await findUser(email, password, res);
+        if (result.status) {
             res.status(result.statuscode).redirect("/working");
         }
-        else
-        {
+        else {
             res.status(result.statuscode).redirect("/login");
         }
-        
+
 
     } catch (error) {
         console.log(error);
