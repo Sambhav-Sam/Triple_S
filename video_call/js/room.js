@@ -8,8 +8,7 @@ const chatContainer = document.getElementById('messages__container');
 const chatButton = document.getElementById('chat__button');
 
 let activeMemberContainer = false;
-let displayFrame = document.getElementById('stream__box')
-let userIdInDisplayFrame = null;
+
 memberButton.addEventListener('click', () => {
   if (activeMemberContainer) {
     memberContainer.style.display = 'none';
@@ -31,3 +30,48 @@ chatButton.addEventListener('click', () => {
 
   activeChatContainer = !activeChatContainer;
 });
+
+
+
+let displayFrame = document.getElementById('stream__box')
+let userIdInDisplayFrame = null;
+let videoFrames = document.getElementsByClassName('video__container')
+let expandVideoFrame = (e) => {
+
+  let child = displayFrame.children[0]
+  if (child) {
+    document.getElementById('streams__container').appendChild(child)
+  }
+
+  displayFrame.style.display = 'block'
+  displayFrame.appendChild(e.currentTarget)
+  userIdInDisplayFrame = e.currentTarget.id
+
+  for (let i = 0; videoFrames.length > i; i++) {
+    if (videoFrames[i].id != userIdInDisplayFrame) {
+      videoFrames[i].style.height = '100px'
+      videoFrames[i].style.width = '100px'
+    }
+  }
+
+}
+
+for (let i = 0; videoFrames.length > i; i++) {
+  videoFrames[i].addEventListener('click', expandVideoFrame)
+}
+
+
+let hideDisplayFrame = () => {
+  userIdInDisplayFrame = null
+  displayFrame.style.display = null
+
+  let child = displayFrame.children[0]
+  document.getElementById('streams__container').appendChild(child)
+
+  for (let i = 0; videoFrames.length > i; i++) {
+    videoFrames[i].style.height = '400px'
+    videoFrames[i].style.width = '400px'
+  }
+}
+
+displayFrame.addEventListener('click', hideDisplayFrame)
