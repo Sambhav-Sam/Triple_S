@@ -80,7 +80,7 @@ app.post("/register", async (req, res) => {
                 expires: new Date(Date.now() + 600000),
                 httpOnly: true
             });
-            res.redirect("/working");
+            res.redirect("/auth/verifyemail");
         }
         else {
             console.log("password didn't matched");
