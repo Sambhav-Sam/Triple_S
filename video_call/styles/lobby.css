@@ -6,6 +6,12 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.emo{
+  height:20px;
+  width:20px;
+  cursor: pointer;
+}
+
 :root {
   --primarycolor:hsl(179, 93%, 44%);
   --blue:hsl(183, 100%, 35%);

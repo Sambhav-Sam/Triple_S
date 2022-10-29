@@ -7,6 +7,14 @@
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
+
+.emo{
+  height:30px;
+  width:30px;
+  cursor: pointer;
+  margin-bottom:2px;
+}
+
 .container {
   width:100vw;
   height:100vh;
@@ -109,7 +117,7 @@
   bottom: 0;
   display: block;
   background-color: #1a1a1a;
-  padding: 1em;
+  padding: 0.5em 1em 1em 1em;
 }
 
 #message__form input {

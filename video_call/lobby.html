@@ -6,6 +6,7 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Room</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='styles/lobby.css'>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +58,8 @@
 
         <div class="form__field__wrapper">
           <label>Room Name</label>
-          <input type="text" autocomplete="off" name="room" required placeholder="Enter room name..." />
+          <input id="emo-text" type="text" autocomplete="off" name="room" required placeholder="Enter room name..." />
+          
         </div>
 
         <div class="form__field__wrapper">
@@ -73,5 +75,17 @@
 
 </body>
 <script type="text/javascript" src="js/lobby.js"></script>
-
+<!-- <script type="text/javascript" src="js/Emoji.js"></script>
+<script type="text/javascript">
+new EmojiPicker({
+  trigger:[
+    {
+      insertInto:['#emo-text'],
+      selector:'.emo'
+    }
+  ],
+  closeButton:true,
+  dragButton:true
+})
+</script> -->
 </html>
