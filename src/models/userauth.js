@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
         required : true,
         unique : true
     },
+    verify :{
+        type : Boolean,
+    },
     salt :{
         type : String
     },

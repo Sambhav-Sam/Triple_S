@@ -6,6 +6,7 @@ const path = require("path");
 const randomstring = require("randomstring");
 const isAuth = require("./isauth");
 const VerifyUser = require("../../src/models/verification");
+const User = require("../../src/models/userauth");
 
 const router = express.Router();
 router.use(express.static("public"));
@@ -76,6 +77,10 @@ router.get("/:verificationlink", async (req, res) => {
         const data = await VerifyUser.findOne({ _id: userId });
         if(data.code===code)
         {
+            const filter  = {_id : userId};
+            const update = {verify : true};
+            await User.findOneAndUpdate(filter, update);
+            await VerifyUser.findByIdAndRemove(userId);
             res.send("user verified successfully");
         }
         else{
