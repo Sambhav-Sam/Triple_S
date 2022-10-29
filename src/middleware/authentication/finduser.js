@@ -13,7 +13,7 @@ const findUser = async (email, password,res) => {
             const verifypassword = await bcrypt.compare(saltedpassword, user.hash);
             if(verifypassword)
             {
-                const token = await createToken(user._id, user);
+                const token = await createToken(user._id);
                 res.cookie("jwt", token, {
                     expires: new Date(Date.now() + 600000),
                     httpOnly: true

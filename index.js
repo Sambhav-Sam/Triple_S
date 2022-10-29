@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
         const { username, email, password, confirmPassword } = req.body;
         if (password === confirmPassword) {
             const user = await createUser(username, email, password);
-            const token = await createToken(user._id, user);
+            const token = await createToken(user._id);
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 600000),
                 httpOnly: true

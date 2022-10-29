@@ -81,7 +81,7 @@ router.get("/:verificationlink", async (req, res) => {
             const update = {verify : true};
             await User.findOneAndUpdate(filter, update);
             await VerifyUser.findByIdAndRemove(userId);
-            res.send("user verified successfully");
+            res.redirect("/test");
         }
         else{
             console.log("code doesn't match");

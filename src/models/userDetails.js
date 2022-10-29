@@ -18,7 +18,7 @@ const userDetailSchema = new mongoose.Schema({
     },
     moreDetail : {
         name : String,
-        dob : String ,
+        dob : Date ,
         gender : Boolean
     }
 });
