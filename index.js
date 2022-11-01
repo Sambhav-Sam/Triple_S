@@ -15,6 +15,7 @@ const createToken = require("./routes/auth/createtoken");
 const isAuth = require("./routes/auth/isauth");
 const createUser = require("./src/middleware/authentication/createuser");
 const findUser = require("./src/middleware/authentication/finduser");
+const userdetails = require("./routes/user/user");
 const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
 
@@ -31,7 +32,7 @@ app.use(cookieParser());
 //-----------------------------------------
 app.use("/auth", Auth);
 app.use("/api",api);
-app.use("/userdetails",require("./routes/user/userdetails"));
+app.use("/buildprofile",userdetails);
 
 
 //routes--------------------------------------------------
@@ -41,6 +42,21 @@ app.get("/test", async (req, res) => {
         const user = await isAuth(req);
         if (user) {
             res.status(200).render("login_registeration/info.ejs");
+        }
+        else {
+            res.status(401).send("bad request");
+        }
+    }
+    catch (err) {
+        res.status(401).send(err);
+    }
+});
+
+app.get("/test2", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        if (user) {
+            res.status(200).render("uploadprofile/uploadProfile.ejs");
         }
         else {
             res.status(401).send("bad request");
