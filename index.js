@@ -56,7 +56,7 @@ app.get("/test2", async (req, res) => {
     try {
         const user = await isAuth(req);
         if (user) {
-            res.status(200).render("uploadprofile/uploadProfile.ejs");
+            res.status(200).render("viewprofile/mainpage.ejs");
         }
         else {
             res.status(401).send("bad request");

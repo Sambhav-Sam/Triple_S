@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
         else {
             res.status(401).send("bad request");
         }
-        
+
     } catch (error) {
         console.log(error);
         res.send(error);
@@ -31,23 +31,32 @@ router.get("/", async (req, res) => {
 
 });
 
-router.post("/",async(req,res)=>{
+router.post("/", async (req, res) => {
     try {
         const user = await isAuth(req);
-        if(req.files){
+        if (req.files) {
             const file = req.files.userImage;
             const rstring = randomstring.generate(30);
-            const filename = rstring +Date.now()+ file.name;
-            file.mv('./uploads/'+filename ,function(err){
-                if(err){
+            const filename = rstring + Date.now() + file.name;
+            file.mv('./uploads/' + filename, function (err) {
+                if (err) {
                     console.log("error while uploading file");
                 }
-                else{
+                else {
                     res.send("file uploaded successfully and account created successfully");
                 }
             });
+
+            const filter = { _id: user._id };
+            const update = {
+                userprofileimage :{
+                    path : filename
+                }
+            };
+            const result = await UserDetail.findOneAndUpdate(filter, update);
+            console.log(result);
         }
-        
+
     } catch (error) {
         console.log(error);
         res.send(error);
