@@ -150,6 +150,14 @@
   flex:0.75;
 }
 
+select{
+  margin-bottom: 12px;
+  margin-left: 20px;
+}
+#message__form i{
+  font-size: 18px;
+  margin-left: 10px;
+}
 
 @media (max-width: 1400px) {
 
