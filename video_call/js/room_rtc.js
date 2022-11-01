@@ -232,9 +232,14 @@ let leaveStream = async (e) => {
     })
   })
   console.log("video frames:",videoFrames.length)
-  
+
   window.location.href = "lobby.html";
 }
+
+
+
+
+
 
 
 
