@@ -1,31 +1,33 @@
 require("../db/connection");
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
 const userDetailSchema = new mongoose.Schema({
-    _id : {
-        type : String
+    _id: {
+        type: String
     },
-    Number :{
-        type : String,
-        Num : String,
-        isVerified : Boolean
+    Number: {
+        type: String,
+        Num: String,
+        isVerified: Boolean
     },
-    location :{
-        lat : String,
-        lon : String,
-        city : String,
-        postcode : String
+    location: {
+        lat: String,
+        lon: String,
+        city: String,
+        postcode: String
     },
-    moreDetail : {
-        name : String,
-        dob : Date ,
-        gender : Boolean
+    moreDetail: {
+        name: String,
+        dob: Date,
+        gender: Boolean
     },
-    userprofileimage : {
-        path : String
-    }
+    userprofileimage: {
+        path: String
+    },
+    likedUser: [],
+    viewedUser:[]
 });
 
-const UserDetail = new mongoose.model("userdetail",userDetailSchema);
+const UserDetail = new mongoose.model("userdetail", userDetailSchema);
 
 module.exports = UserDetail;

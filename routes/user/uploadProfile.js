@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
             const file = req.files.userImage;
             const rstring = randomstring.generate(30);
             const filename = rstring + Date.now() + file.name;
-            file.mv('./uploads/' + filename, function (err) {
+            file.mv('./public/uploads/' + filename, function (err) {
                 if (err) {
                     console.log("error while uploading file");
                 }

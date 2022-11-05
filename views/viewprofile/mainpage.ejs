@@ -15,7 +15,7 @@
           <navbar class="navbar">
             <div class="space">
               <div class="logo">
-                <img src="/images/logo.png" alt="" />
+                <img src=<%=avtarlink %> alt="" />
               </div>
               <div class="name"><h3>sarthak patel</h3></div>
             </div>
@@ -101,10 +101,10 @@
         <div class="right">
           <div class="card">
             <div class="content">
-              <img src="/images/sample.png" alt="" />
+              <img id="userpic" src="" alt="" />
               <div class="about">
                 <div class="first">
-              <h2>Sambhav Sharma</h2> <h3>20</h3>
+              <h2 id="username"></h2> <h3 id="userage"></h3>
             </div>
             <div class="second">
                 <div class="one">
@@ -120,16 +120,16 @@
             </div>
               <div class="multi">
                 <div class="circle">
-                  <button>
+                  <button onclick="undo()">
                     <i class="fa-solid fa-rotate-left orange"></i>
                   </button>
-                  <button>
+                  <button onclick="skipUser()">
                     <i class="fa-solid fa-xmark red"></i>
                   </button>
                   <button>
                     <i class="fa-solid fa-star blue"></i>
                   </button>
-                  <button>
+                  <button onclick="likeUser()">
                     <i class="fa-solid fa-heart green"></i>
                   </button>
                   <button>
@@ -165,5 +165,6 @@
         </div>
       </div>
     </div>
+    <script src="/js/viewusers.js"></script>
   </body>
 </html>
