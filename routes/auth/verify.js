@@ -46,6 +46,7 @@ router.get("/", async (req, res) => {
                 subject: 'otp verification',
                 html: html
             };
+            console.log(mailOptions);
 
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {

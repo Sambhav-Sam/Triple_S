@@ -25,7 +25,9 @@ const userDetailSchema = new mongoose.Schema({
         path: String
     },
     likedUser: [],
-    viewedUser:[]
+    viewedUser:[],
+    superlikes:[],
+    matches:[]
 });
 
 const UserDetail = new mongoose.model("userdetail", userDetailSchema);

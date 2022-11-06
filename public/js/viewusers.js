@@ -5,6 +5,7 @@ var currUser ="";
 const showUserPic = document.getElementById("userpic");
 const userName = document.getElementById("username");
 const userAge = document.getElementById("userage");
+const dist = document.getElementById("distance");
 
 //getting user data 
 
@@ -23,12 +24,29 @@ const getUser = ()=>{
         userName.innerHTML = fres.name;
         userAge.innerHTML = fres.age;
         currUser = fres.userid;
+        dist.innerHTML = fres.distance;
     });
 }
 
 //liking the user
 const addUsertolikedList = async ()=>{
     fetch('/api/likeuser', {
+
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ userid: currUser })
+    }).then((res) => {
+        return res.json();
+    }).then((fres) => {
+        console.log(fres);
+    });
+}
+
+//superliking the user
+const addUsertosuperlikedList = async ()=>{
+    fetch('/api/superlikeuser', {
 
         method: 'POST',
         headers: {
@@ -72,6 +90,7 @@ const previousUser = async ()=>{
         showUserPic.src = fres.imgurl;
         userName.innerHTML = fres.name;
         userAge.innerHTML = fres.age;
+        dist.innerHTML = fres.distance;
         currUser = fres.userid;
     });
 }
@@ -90,9 +109,9 @@ document.addEventListener("keydown",function(event){
 });
 
 //when we skip the user
-const skipUser=()=>{
+const skipUser=async ()=>{
+    await saveUser();
     getUser();
-    saveUser();
     console.log(`you skip the user : ${currUser}` );
 }
 
@@ -100,8 +119,9 @@ const skipUser=()=>{
 //when we like the user
 const likeUser= async ()=>{
     await addUsertolikedList();
+    await saveUser();
     await getUser();
-    saveUser();
+    
     console.log(`you liked the user : ${currUser}` );
     console.log("now you can go ahead");
 }
@@ -109,5 +129,15 @@ const likeUser= async ()=>{
 //when we press the undo key
 const undo = async ()=>{
     previousUser();
+}
+
+//when we press the superlike key
+const superlikeuser = async ()=>{
+    console.log("super like button is pressed");
+    await addUsertolikedList();
+    await addUsertosuperlikedList();
+    await saveUser();
+    getUser();
+    
 }
 
