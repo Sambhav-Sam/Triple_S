@@ -59,8 +59,7 @@ app.get("/test2", async (req, res) => {
         if (user) {
             const data = await UserDetail.findOne({_id: user._id}).select({moreDetail : {name : 1}});
             const name = data.moreDetail.name;
-            const avtarlink = `https://avatars.dicebear.com/api/avataaars/${name}.svg`;
-            res.status(200).render("viewprofile/mainpage.ejs",{avtarlink : avtarlink});
+            res.status(200).render("viewprofile/mainpage.ejs",{username : name});
         }
         else {
             res.status(401).send("bad request");
