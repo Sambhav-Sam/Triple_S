@@ -19,6 +19,7 @@ const userdetails = require("./routes/user/user");
 const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
 const UserDetail = require("./src/models/userDetails");
+const findMatches = require("./src/middleware/retrievematches");
 
 
 const app = express();
@@ -59,7 +60,11 @@ app.get("/test2", async (req, res) => {
         if (user) {
             const data = await UserDetail.findOne({_id: user._id}).select({moreDetail : {name : 1}});
             const name = data.moreDetail.name;
-            res.status(200).render("viewprofile/mainpage.ejs",{username : name});
+            
+            //fetching the match users name
+            const matches = await findMatches(user._id);
+
+            res.status(200).render("viewprofile/mainpage.ejs",{username : name , matches : matches});
         }
         else {
             res.status(401).send("bad request");

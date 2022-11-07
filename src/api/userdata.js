@@ -19,7 +19,7 @@ router.post("/userpic", async (req, res) => {
 
         //getting users data
         const data = await UserDetail.aggregate([{ $match: { _id: { $ne: user._id } } },
-        { $sample: { "size": 1 } }]);
+        { $sample: { size: 1 } }]).exec();
         const userdata = data[0];
         const imgurl = "/uploads/" + userdata.userprofileimage.path;
 
@@ -54,19 +54,15 @@ router.post("/likeuser", async (req, res) => {
 
         //getting liked user data
         const likedUserId = req.body.userid;
-        const userlikedusers = await UserDetail.findOne({ _id: user._id }).select({ likedUser: 1 ,matches :1});
-        userlikedusers.likedUser = userlikedusers.likedUser.concat(likedUserId);
-        await userlikedusers.save();
+        const userlikedusers = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {likedUser : likedUserId}});
 
         //cross checking the like in liked user
-        const otherUser = await UserDetail.findOne({_id:likedUserId}).select({likedUser:1 , matches :1});
+        const otherUser = await UserDetail.findOne({_id:likedUserId}).select({likedUser:1});
         const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
         if(otherUserlikedlist)
         {
-            otherUser.matches = otherUser.matches.concat(user._id);
-            userlikedusers.matches = userlikedusers.matches.concat(likedUserId);
-            const result1 = await otherUser.save();
-            const result2 = await userlikedusers.save();
+            const result1 = await otherUser.findOneAndUpdate({ _id: likedUserId },{$addToSet : {matches : user._id}});
+            const result2 = await userlikedusers.findOneAndUpdate({ _id: user._id },{$addToSet : {matches : likedUserId}});
             console.log(result1);
             console.log(result2);
         }
@@ -90,9 +86,7 @@ router.post("/superlikeuser", async (req, res) => {
 
         //getting superlikes data
         const sId = req.body.userid;
-        const userlikedusers = await UserDetail.findOne({ _id: sId }).select({ superlikes: 1 });
-        userlikedusers.superlikes = userlikedusers.superlikes.concat(user._id);
-        await userlikedusers.save();
+        const userlikedusers = await UserDetail.findOneAndUpdate({ _id: sId },{$addToSet : {superlikes : user.id}});
 
         const result = {
             status: 200
@@ -113,9 +107,7 @@ router.post("/saveuser", async (req, res) => {
 
         //getting liked user data
         const saveUserId = req.body.userid;
-        const viewedUsers = await UserDetail.findOne({ _id: user._id }).select({ viewedUser: 1 });
-        viewedUsers.viewedUser = viewedUsers.viewedUser.concat(saveUserId);
-        await viewedUsers.save();
+        const viewedUsers = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {viewedUser : saveUserId}});
 
         const result = {
             status: 200
