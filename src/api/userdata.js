@@ -18,10 +18,9 @@ router.post("/userpic", async (req, res) => {
         const user = await isAuth(req);
 
         //getting users data
-        const count = await UserDetail.count().exec();
-        const random = Math.floor(Math.random() * count);
-        const userdata = await UserDetail.findOne({_id : {$ne : user._id}});
-        console.log(userdata);
+        const data = await UserDetail.aggregate([{ $match: { _id: { $ne: user._id } } },
+        { $sample: { "size": 1 } }]);
+        const userdata = data[0];
         const imgurl = "/uploads/" + userdata.userprofileimage.path;
 
         //getting our coordinates from database
