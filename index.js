@@ -33,8 +33,8 @@ app.use(cookieParser());
 
 //-----------------------------------------
 app.use("/auth", Auth);
-app.use("/api",api);
-app.use("/buildprofile",userdetails);
+app.use("/api", api);
+app.use("/buildprofile", userdetails);
 
 
 //routes--------------------------------------------------
@@ -58,16 +58,16 @@ app.get("/test2", async (req, res) => {
     try {
         const user = await isAuth(req);
         if (user) {
-            const data = await UserDetail.findOne({_id: user._id}).select({moreDetail : {name : 1}});
+            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } });
             const name = data.moreDetail.name;
-            
+
             //fetching the match users name
             const matches = await findMatches(user._id);
 
-            res.status(200).render("viewprofile/mainpage.ejs",{username : name , matches : matches});
+            res.status(200).render("viewprofile/mainpage.ejs", { username: name, matches: matches });
         }
         else {
-            res.status(401).send("bad request");
+            res.status(401).redirect("/login");
         }
     }
     catch (err) {
@@ -75,8 +75,22 @@ app.get("/test2", async (req, res) => {
     }
 });
 
-app.get("/login", (req, res) => {
-    res.render("login_registeration/login.ejs");
+app.get("/login", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        //TODO : uncomment before uploading it
+        // if (user) {
+        //     res.status(200).redirect("/test2");
+        // }
+        // else {
+        //     res.render("login_registeration/login.ejs");
+        // }
+        res.render("login_registeration/login.ejs");
+
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
 
 app.get("/working", async (req, res) => {
@@ -119,10 +133,11 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
+        const user = await isAuth(req);
         const { email, password } = req.body;
         const result = await findUser(email, password, res);
         if (result.status) {
-            res.status(result.statuscode).redirect("/working");
+            res.status(result.statuscode).redirect("/test2");
         }
         else {
             res.status(result.statuscode).redirect("/login");

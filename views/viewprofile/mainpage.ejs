@@ -54,7 +54,7 @@
           </div>
 
 <!-- ------------------------------------------------------- -->
-
+          <% if(matches.length){%>
           <% matches.forEach(element =>{ %>
           <div class="match hide">
             <div class="user">
@@ -76,9 +76,7 @@
             </div>
           </div>
           <% }); %>
-
-<!-- --------------------------------------------------------------------- -->
-
+          <%}else{%>
           <div class="matching show">
             <img src="/images/match.png" alt="" />
             <h1>Start Matching</h1>
@@ -89,6 +87,9 @@
               est asperiores ipsa?
             </p>
           </div>
+          <%}%>
+
+<!-- ----------------------------------------------------------------------------------------- -->
         </div>
       </div>
       <div class="right">

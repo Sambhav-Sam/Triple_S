@@ -61,8 +61,8 @@ router.post("/likeuser", async (req, res) => {
         const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
         if(otherUserlikedlist)
         {
-            const result1 = await otherUser.findOneAndUpdate({ _id: likedUserId },{$addToSet : {matches : user._id}});
-            const result2 = await userlikedusers.findOneAndUpdate({ _id: user._id },{$addToSet : {matches : likedUserId}});
+            const result1 = await UserDetail.findOneAndUpdate({ _id: likedUserId },{$addToSet : {matches : user._id}});
+            const result2 = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {matches : likedUserId}});
             console.log(result1);
             console.log(result2);
         }
