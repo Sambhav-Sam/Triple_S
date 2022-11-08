@@ -5,6 +5,7 @@ const userDetailSchema = new mongoose.Schema({
     _id: {
         type: String
     },
+    socketId :String ,
     Number: {
         type: String,
         Num: String,
