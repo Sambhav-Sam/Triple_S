@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <video id="webcam" autoplay playsinline width="320" height="240"></video>
+    <button id="takesnap">Take Snap</button>
     <canvas id="canvas" class="d-none"></canvas>
     <button onclick="upload()" id="upload">Upload Image</button>
 
@@ -18,6 +19,7 @@
         'use strict';
         const webcamElement = document.getElementById('webcam');
         const canvasElement = document.getElementById('canvas');
+        const clickbutton = document.getElementById('takesnap');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
 
         //start webcam
@@ -30,26 +32,29 @@
             });
 
         //snapshot
-        canvasElement.addEventListener('click', () => {
+        clickbutton.addEventListener('click', () => {
             let picture = webcam.snap();
         });
 
+        // sending data to server
+        const upload = async () => {
+            canvasElement.toBlob(blob => {
+                const file = new File([blob], "liveimage.png");
+                console.log(file);
+                // add the file to the FormData object
+                const fd = new FormData()
+                fd.append('image', file)
 
-        //sending data to server
-        const upload = () => {
-            fetch('/api/imgverify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: canvasElement.toDataURL("image/png")
-            }).then((res) => {
-                return res.json();
-            }).then((fres) => {
-                console.log(fres);
+                // send `POST` request
+                fetch('/api/imgverify', {
+                    method: 'POST',
+                    body: fd
+                })
+                    .then(res => res.json())
+                    .then(json => console.log(json))
+                    .catch(err => console.error(err))
             });
         }
-
 
     </script>
 
