@@ -15,8 +15,11 @@ const createToken = require("./routes/auth/createtoken");
 const isAuth = require("./routes/auth/isauth");
 const createUser = require("./src/middleware/authentication/createuser");
 const findUser = require("./src/middleware/authentication/finduser");
+const userdetails = require("./routes/user/user");
 const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
+const UserDetail = require("./src/models/userDetails");
+const findMatches = require("./src/middleware/retrievematches");
 
 
 const app = express();
@@ -30,8 +33,8 @@ app.use(cookieParser());
 
 //-----------------------------------------
 app.use("/auth", Auth);
-app.use("/api",api);
-app.use("/userdetails",require("./routes/user/userdetails"));
+app.use("/api", api);
+app.use("/buildprofile", userdetails);
 
 
 //routes--------------------------------------------------
@@ -51,8 +54,43 @@ app.get("/test", async (req, res) => {
     }
 });
 
-app.get("/login", (req, res) => {
-    res.render("login_registeration/login.ejs");
+app.get("/test2", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        if (user) {
+            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } });
+            const name = data.moreDetail.name;
+
+            //fetching the match users name
+            const matches = await findMatches(user._id);
+
+            res.status(200).render("viewprofile/mainpage.ejs", { username: name, matches: matches });
+        }
+        else {
+            res.status(401).redirect("/login");
+        }
+    }
+    catch (err) {
+        res.status(401).send(err);
+    }
+});
+
+app.get("/login", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        //TODO : uncomment before uploading it
+        // if (user) {
+        //     res.status(200).redirect("/test2");
+        // }
+        // else {
+        //     res.render("login_registeration/login.ejs");
+        // }
+        res.render("login_registeration/login.ejs");
+
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
 
 app.get("/working", async (req, res) => {
@@ -75,9 +113,9 @@ app.post("/register", async (req, res) => {
         const { username, email, password, confirmPassword } = req.body;
         if (password === confirmPassword) {
             const user = await createUser(username, email, password);
-            const token = await createToken(user._id, user);
+            const token = await createToken(user._id);
             res.cookie("jwt", token, {
-                expires: new Date(Date.now() + 600000),
+                expires: new Date(Date.now() + 6000000),
                 httpOnly: true
             });
             res.redirect("/auth/verifyemail");
@@ -95,10 +133,11 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
+        const user = await isAuth(req);
         const { email, password } = req.body;
         const result = await findUser(email, password, res);
         if (result.status) {
-            res.status(result.statuscode).redirect("/working");
+            res.status(result.statuscode).redirect("/test2");
         }
         else {
             res.status(result.statuscode).redirect("/login");

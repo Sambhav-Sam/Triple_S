@@ -46,6 +46,7 @@ router.get("/", async (req, res) => {
                 subject: 'otp verification',
                 html: html
             };
+            console.log(mailOptions);
 
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -81,7 +82,7 @@ router.get("/:verificationlink", async (req, res) => {
             const update = {verify : true};
             await User.findOneAndUpdate(filter, update);
             await VerifyUser.findByIdAndRemove(userId);
-            res.send("user verified successfully");
+            res.redirect("/test");
         }
         else{
             console.log("code doesn't match");
