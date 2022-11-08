@@ -54,17 +54,18 @@ router.post("/likeuser", async (req, res) => {
 
         //getting liked user data
         const likedUserId = req.body.userid;
-        const userlikedusers = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {likedUser : likedUserId}});
+        await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { likedUser: likedUserId } });
 
         //cross checking the like in liked user
-        const otherUser = await UserDetail.findOne({_id:likedUserId}).select({likedUser:1});
+        const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1 });
         const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
-        if(otherUserlikedlist)
-        {
-            const result1 = await UserDetail.findOneAndUpdate({ _id: likedUserId },{$addToSet : {matches : user._id}});
-            const result2 = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {matches : likedUserId}});
-            console.log(result1);
-            console.log(result2);
+        if (otherUserlikedlist) {
+            const message = {
+                message: "congratulations you get a new match with someone check your Match box now !!!!",
+                isviewed: false
+            }
+            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: user._id } ,$push:{messages : message}});
+            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: likedUserId } ,$push :{messages : message} });
         }
 
         const result = {
@@ -86,7 +87,18 @@ router.post("/superlikeuser", async (req, res) => {
 
         //getting superlikes data
         const sId = req.body.userid;
-        const userlikedusers = await UserDetail.findOneAndUpdate({ _id: sId },{$addToSet : {superlikes : user.id}});
+
+        //getting the name of the user
+        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } });
+        const name = data.moreDetail.name;
+
+        //creating a message for the user
+        const message = {
+            message: name +" likes your profile",
+            user: user._id,
+            isviewed: false
+        }
+        await UserDetail.findOneAndUpdate({ _id: sId }, { $addToSet: { superlikes: user._id }, $push: { messages: message } });
 
         const result = {
             status: 200
@@ -107,7 +119,7 @@ router.post("/saveuser", async (req, res) => {
 
         //getting liked user data
         const saveUserId = req.body.userid;
-        const viewedUsers = await UserDetail.findOneAndUpdate({ _id: user._id },{$addToSet : {viewedUser : saveUserId}});
+        const viewedUsers = await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { viewedUser: saveUserId } });
 
         const result = {
             status: 200
@@ -152,7 +164,7 @@ router.post("/getprevioususer", async (req, res) => {
                 userid: userdata._id,
                 name: userdata.moreDetail.name,
                 age: age,
-                distance : distance
+                distance: distance
             }
             res.send(JSON.stringify(resultobject));
         }

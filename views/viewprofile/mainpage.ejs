@@ -46,17 +46,18 @@
         <div class="main">
           <div class="option">
             <button>
-              <h4 class="active">Matches</h4>
+              <h4 class="active" id="matchwindow" onclick="matchwindow()">Matches</h4>
             </button>
             <button>
-              <h4>Messages</h4>
+              <h4 id="messagewindow" onclick="messagewindow()">Messages</h4>
             </button>
           </div>
 
-<!-- ------------------------------------------------------- -->
+<!-- Matches section ------------------------------------------------------- -->
+<div id="match">
           <% if(matches.length){%>
           <% matches.forEach(element =>{ %>
-          <div class="match hide">
+          <div class="match">
             <div class="user">
               <img src="https://avatars.dicebear.com/api/avataaars/<%=element.moreDetail.name%>.svg" alt="">
             </div>
@@ -77,7 +78,7 @@
           </div>
           <% }); %>
           <%}else{%>
-          <div class="matching show">
+          <div class="matching">
             <img src="/images/match.png" alt="" />
             <h1>Start Matching</h1>
             <p>
@@ -88,9 +89,56 @@
             </p>
           </div>
           <%}%>
+</div>
 
 <!-- ----------------------------------------------------------------------------------------- -->
+
+<!-- Messages section ------------------------------------------------------- -->
+<div id="message" class="hide">
+<% if(messages.length){%>
+  <% messages.forEach(element =>{ %>
+  <div class="match">
+    <div class="user">
+      <img src="https://avatars.dicebear.com/api/avataaars/<%=element.message%>.svg" alt="">
+    </div>
+    <div class="match_info">
+      <div class="matched">
+        <div class="match_name">
+          <h3><%=element.message%></h3>
         </div>
+        <div class="match_message">
+          <p>xyzabc:</p>
+        </div>
+        <div class="line"></div>
+      </div>
+      <div class="time">
+        <p>xyzabc</p>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+  <%}else{%>
+  <div class="matching">
+    <img src="/images/match.png" alt="" />
+    <h1>Start Matching</h1>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+      Officia quaerat, deleniti corrupti id quasi ex saepe odit
+      molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
+      est asperiores ipsa?
+    </p>
+  </div>
+  <%}%>
+</div>
+<!-- ----------------------------------------------------------------------------------------- -->
+
+        </div>
+<!-- sos model box ------------------------------------------------------------  -->
+<div class="sos_model_box" hidden>
+
+</div>
+<!-- -------------------------------------------------------------------------------  -->
+
       </div>
       <div class="right">
         <div class="card">
@@ -174,8 +222,9 @@
       </div>
     </div>
   </div>
+  
   <script src="/js/viewusers.js"></script>
-  <!-- <script src="/js/changeidtouser.js"></script> -->
+  <script src="/js/options.js"></script>
 </body>
 
 </html>

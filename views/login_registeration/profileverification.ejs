@@ -40,7 +40,6 @@
         const upload = async () => {
             canvasElement.toBlob(blob => {
                 const file = new File([blob], "liveimage.png");
-                console.log(file);
                 // add the file to the FormData object
                 const fd = new FormData()
                 fd.append('image', file)

@@ -95,11 +95,11 @@
   margin: 13px;
   margin-top: 0px;
 }
-/* .hide{
+.hide{
   display: none;
 }
-.show{
-  display: none !important;
+/* .show{
+  display: block !important;
 } */
 .two button{
   background-color: transparent;
@@ -339,4 +339,18 @@
 .instruction_first:hover{
   cursor: pointer;
   background-color: rgb(160, 155, 155) !important;
+}
+
+/* sos_model_box */
+.sos_model_box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -150px;
+  height: 300px;
+  width: 400px;
+  z-index: 3;
+  background-color: peachpuff;
+  box-shadow: 0 15px 50px black;
 }

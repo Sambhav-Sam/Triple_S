@@ -4,7 +4,8 @@ const mongoose=require("mongoose");
 const verifyUserSchema = new mongoose.Schema({
     _id : {
         type : String,
-        required : true
+        required : true,
+        unique : false
     },
     code :{
         type : String,

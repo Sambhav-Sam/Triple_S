@@ -7,7 +7,8 @@ const verify = require("./verify");
 const photoverify = require("./photoverification");
 
 
-router.use("/google",login);
+// router.use("/google",login);
+router.use("/",login);
 router.use("/verifyemail",verify);
 router.use("/imgverify",photoverify);
 

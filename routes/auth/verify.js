@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
                     res.send(error);
                 } else {
                     console.log('Email sent: ' + info.response);
-                    res.send("a verification has been sent to your email");
+                    res.status(200).render("login_registeration/email_confirm.ejs");
                 }
             });
 
