@@ -41,7 +41,7 @@ app.get("/test", async (req, res) => {
     try {
         const user = await isAuth(req);
         if (user) {
-            res.status(200).render("login_registeration/info.ejs");
+            res.status(200).render("login_registeration/buildprofile.ejs");
         }
         else {
             res.status(401).send("bad request");

@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
         //api to convert coordinates into city name and postal code
         const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${req.body.latitude}&lon=${req.body.longitude}&zoom=18&addressdetails=1`);
 
-        console.log(response.data);
         const city = response.data.address.state_district;
         const postalCode = response.data.address.postcode;
 
@@ -36,7 +35,6 @@ router.post("/", async (req, res) => {
                 }
             };
             const newdata = await UserDetail.findOneAndUpdate(filter, update);
-            console.log(newdata);
         }
         else {
             //else creating the new user with the location details
@@ -50,7 +48,6 @@ router.post("/", async (req, res) => {
                 }
             }).save();
 
-            console.log(newdata);
         }
 
 

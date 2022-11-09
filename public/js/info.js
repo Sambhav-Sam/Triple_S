@@ -1,20 +1,20 @@
-//mobile otp verification
-const sendOtp = () => {
-    const number = document.getElementById("num").value;
-    fetch('/api/verifynumber', {
+// //mobile otp verification
+// const sendOtp = () => {
+//     const number = document.getElementById("num").value;
+//     fetch('/api/verifynumber', {
 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ number: number })
-    }).then((res) => {
-        return res.json();
-    }).then((fres) => {
-        console.log(fres);
-    });
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify({ number: number })
+//     }).then((res) => {
+//         return res.json();
+//     }).then((fres) => {
+//         console.log(fres);
+//     });
 
-}
+// }
 
 //getting the coordinates of the user
 function getLocation() {

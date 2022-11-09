@@ -29,14 +29,20 @@ router.get("/", async (req, res) => {
         if (user) {
             const code = randomstring.generate(30);
             const id = user._id;
-            const newUser = new VerifyUser({
-                _id: id,
-                code: code
-            });
-            const result = await newUser.save();
-            console.log(result);
+            const verifyid = await VerifyUser.findOne({_id : id });
+            if(verifyid)
+            {
+                await VerifyUser.findOneAndUpdate({_id : id},{code : code});
+            }
+            else{
+                const newUser = new VerifyUser({
+                    _id: id,
+                    code: code
+                });
+                await newUser.save();
+            }
+            
             const url = "http://localhost:3000/auth/verifyemail/" + code + id;
-            console.log(url);
             const filepath = path.join(__dirname, "../../views/login_registeration/verifyemail.ejs")
             const html = await ejs.renderFile(filepath, { username: user.username, email: user.email, url: url });
 
@@ -46,7 +52,6 @@ router.get("/", async (req, res) => {
                 subject: 'otp verification',
                 html: html
             };
-            console.log(mailOptions);
 
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
