@@ -53,42 +53,45 @@
             </button>
           </div>
 
-<!-- Matches section ------------------------------------------------------- -->
-<div id="match">
-          <% if(matches.length){%>
-          <% matches.forEach(element =>{ %>
-          <div class="match">
-            <div class="user">
-              <img src="https://avatars.dicebear.com/api/avataaars/<%=element.moreDetail.name%>.svg" alt="">
-            </div>
-            <div class="match_info">
-              <div class="matched">
-                <div class="match_name">
-                  <h3><%=element.moreDetail.name%></h3>
+          <!-- Matches section ------------------------------------------------------- -->
+          <div id="match">
+            <% if(matches.length){%>
+            <% matches.forEach(element =>{ %>
+            <a href="/chat">
+              <div class="match">
+                <div class="user">
+                  <img src="https://avatars.dicebear.com/api/avataaars/<%=element.moreDetail.name%>.svg" alt="">
                 </div>
-                <div class="match_message">
-                  <p>xyzabc:</p>
+                <div class="match_info">
+                  <div class="matched">
+                    <div class="match_name">
+                      <h3><%=element.moreDetail.name%></h3>
+                    </div>
+                    <div class="match_message">
+                      <p>xyzabc:</p>
+                    </div>
+                    <div class="line"></div>
+                  </div>
+                  <div class="time">
+                    <p>xyzabc</p>
+                  </div>
                 </div>
-                <div class="line"></div>
               </div>
-              <div class="time">
-                <p>xyzabc</p>
-              </div>
+            </a>
+
+            <% }); %>
+            <%}else{%>
+            <div class="matching">
+              <img src="/images/match.png" alt="" />
+              <h1>Start Matching</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Officia quaerat, deleniti corrupti id quasi ex saepe odit
+                molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
+                est asperiores ipsa?
+              </p>
             </div>
-          </div>
-          <% }); %>
-          <%}else{%>
-          <div class="matching">
-            <img src="/images/match.png" alt="" />
-            <h1>Start Matching</h1>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Officia quaerat, deleniti corrupti id quasi ex saepe odit
-              molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
-              est asperiores ipsa?
-            </p>
-          </div>
-          <%}%>
+            <%}%>
 </div>
 
 <!-- ----------------------------------------------------------------------------------------- -->
@@ -96,46 +99,48 @@
 <!-- Messages section ------------------------------------------------------- -->
 <div id="message" class="hide">
 <% if(messages.length){%>
-  <% messages.forEach(element =>{ %>
-  <div class="match">
-    <div class="user">
-      <img src="https://avatars.dicebear.com/api/avataaars/<%=element.message%>.svg" alt="">
-    </div>
-    <div class="match_info">
-      <div class="matched">
-        <div class="match_name">
-          <h3><%=element.message%></h3>
-        </div>
-        <div class="match_message">
-          <p>xyzabc:</p>
-        </div>
-        <div class="line"></div>
-      </div>
-      <div class="time">
-        <p>xyzabc</p>
-      </div>
-    </div>
-  </div>
-  <% }); %>
-  <%}else{%>
-  <div class="matching">
-    <img src="/images/match.png" alt="" />
-    <h1>Start Matching</h1>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-      Officia quaerat, deleniti corrupti id quasi ex saepe odit
-      molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
-      est asperiores ipsa?
-    </p>
-  </div>
-  <%}%>
+            <% messages.forEach(element =>{ %>
+
+            <div class="match">
+              <div class="user">
+                <img src="https://avatars.dicebear.com/api/avataaars/<%=element.message%>.svg" alt="">
+              </div>
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name">
+                    <h3><%=element.message%></h3>
+                  </div>
+                  <div class="match_message">
+                    <p>xyzabc:</p>
+                  </div>
+                  <div class="line"></div>
+                </div>
+                <div class="time">
+                  <p>xyzabc</p>
+                </div>
+              </div>
+            </div>
+
+            <% }); %>
+            <%}else{%>
+            <div class="matching">
+              <img src="/images/match.png" alt="" />
+              <h1>Start Matching</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Officia quaerat, deleniti corrupti id quasi ex saepe odit
+                molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
+                est asperiores ipsa?
+              </p>
+            </div>
+            <%}%>
 </div>
 <!-- ----------------------------------------------------------------------------------------- -->
 
         </div>
 <!-- sos model box ------------------------------------------------------------  -->
 <div class="sos_model_box" hidden>
-
+  
 </div>
 <!-- -------------------------------------------------------------------------------  -->
 
@@ -222,7 +227,7 @@
       </div>
     </div>
   </div>
-  
+
   <script src="/js/viewusers.js"></script>
   <script src="/js/options.js"></script>
 </body>

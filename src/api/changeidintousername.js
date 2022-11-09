@@ -6,21 +6,21 @@ const UserDetail = require("../models/userDetails");
 const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 
 router.post("/", async (req, res) => {
-    try {
-        //authenticating user
-        const user = await isAuth(req);
-
-        
+  try {
+    //authenticating user
+    const user = await isAuth(req);
 
 
-    } catch (error) {
-        console.log(error);
-        res.send(error);
-    }
+
+
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 });
 
 

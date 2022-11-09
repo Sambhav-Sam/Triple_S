@@ -1,9 +1,11 @@
 //requiring external pakages
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 
 
 
@@ -11,12 +13,12 @@ const cookieParser = require("cookie-parser");
 const User = require("./src/models/userauth");
 
 
-const app = express();
+
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 app.use(cookieParser());
 
@@ -38,59 +40,90 @@ app.use("/buildprofile", userdetails);
 //routes--------------------------------------------------
 
 app.get("/test", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            res.status(200).render("login_registeration/info.ejs");
-        }
-        else {
-            res.status(401).send("bad request");
-        }
+  try {
+    const user = await isAuth(req);
+    if (user) {
+      res.status(200).render("login_registeration/info.ejs");
+    } else {
+      res.status(401).send("bad request");
     }
-    catch (err) {
-        res.status(401).send(err);
-    }
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
 
 app.get("/test2", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } ,messages : 1});
-            const name = data.moreDetail.name;
-            const messages = data.messages.reverse();
+  try {
+    const user = await isAuth(req);
+    if (user) {
+      const data = await UserDetail.findOne({
+        _id: user._id
+      }).select({
+        moreDetail: {
+          name: 1
+        },
+        messages: 1
+      });
+      const name = data.moreDetail.name;
+      const messages = data.messages.reverse();
 
-            //fetching the match users name
-            const matches = await findMatches(user._id);
+      //fetching the match users name
+      const matches = await findMatches(user._id);
 
-            res.status(200).render("viewprofile/mainpage.ejs", { username: name, matches: matches ,messages : messages });
-        }
-        else {
-            res.status(401).redirect("/auth/login");
-        }
+      res.status(200).render("viewprofile/mainpage.ejs", {
+        username: name,
+        matches: matches,
+        messages: messages
+      });
+    } else {
+      res.status(401).redirect("/auth/login");
     }
-    catch (err) {
-        res.status(401).send(err);
-    }
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
 
 app.get("/working", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            res.status(200).send(user);
-        }
-        else {
-            res.status(401).send("bad request");
-        }
+  try {
+    const user = await isAuth(req);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("bad request");
     }
-    catch (err) {
-        res.status(401).send(err);
-    }
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
+
+app.get("/chat", (req, res) => {
+  res.sendFile(__dirname + "/chat.html");
+});
+
+
+
+
+
+
+
+
+
+io.on("connection", function(socket) {
+  socket.on("message",(msg)=>{
+    socket.broadcast.emit("message",msg);
+  })
+});
+
+
+
+
+
+
+
+
 
 //port----------------------------------------------------
 const PORT = 3000;
-app.listen(PORT, (req, res) => {
-    console.log(`server started on port:${PORT}`);
+http.listen(PORT, (req, res) => {
+  console.log(`server started on port:${PORT}`);
 });
