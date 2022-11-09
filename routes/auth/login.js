@@ -5,6 +5,7 @@ const createToken = require("./createtoken");
 const isAuth = require("./isauth");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const UserDetail = require("../../src/models/userDetails");
 
 const router = express.Router();
 
@@ -61,22 +62,28 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await isAuth(req);
         const { email, password } = req.body;
         const result = await findUser(email, password, res);
         if (result.status) {
-            res.status(result.statuscode).redirect("/test2");
+            const data = await UserDetail.findOne({ _id: result.userId }).select({ moreDetail: 1 });
+            if (data && data.moreDetail) {
+                res.status(result.statuscode).redirect("/test2");
+            }
+            else {
+                res.status(result.statuscode).redirect("/buildprofile/userdetails");
+            }
+
         }
         else {
-            res.status(result.statuscode).redirect("/login");
+            res.status(result.statuscode).redirect("/auth/login");
         }
 
 
     } catch (error) {
         console.log(error);
-        res.status(400).send(error);
+        res.status(400).redirect("/auth/login");
     }
 
 });
 
-module.exports= router;
+module.exports = router;

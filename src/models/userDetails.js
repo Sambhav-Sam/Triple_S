@@ -28,6 +28,9 @@ const userDetailSchema = new mongoose.Schema({
     userprofileimage: {
         path: String
     },
+    userliveimage:{
+        path : String
+    },
     likedUser: [],
     viewedUser:[],
     superlikes:[],

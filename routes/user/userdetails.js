@@ -96,6 +96,11 @@ router.post("/", async (req, res) => {
                 console.log(newdata);
 
             }
+            const result = {
+                msg : "data saved successfully",
+                status : 200
+            }
+            res.status(JSON.stringify(result)).redirect("/auth/imgverify");
         }
         else {
             res.status(401).send("not authorized");
