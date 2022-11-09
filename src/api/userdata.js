@@ -57,8 +57,13 @@ router.post("/likeuser", async (req, res) => {
         const likedUserId = req.body.userid;
         await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { likedUser: likedUserId } });
 
+        //getting my name 
+        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 }});
+        const myname = data.moreDetail.name;
+
         //cross checking the like in liked user
-        const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1 });
+        const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1 ,moreDetail:{name : 1}});
+        const otherusername = otherUser.moreDetail.name;
         const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
         if (otherUserlikedlist) {
             const message = {
@@ -66,8 +71,8 @@ router.post("/likeuser", async (req, res) => {
                 isviewed: false
             }
             const roomId = randomstring.generate(30) + Date.now();
-            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: { userId: user._id, roomId: roomId } }, $push: { messages: message } });
-            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: { userId: likedUserId, roomId: roomId } }, $push: { messages: message } });
+            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: { userId: user._id,name : myname , roomId: roomId } }, $push: { messages: message } });
+            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: { userId: likedUserId,name : otherusername , roomId: roomId } }, $push: { messages: message } });
         }
 
         const result = {

@@ -6,11 +6,28 @@ const upload = require("express-fileupload");
 const isAuth = require("../auth/isauth");
 
 const router = express.Router();
+router.use(express.static("public"));
 router.use(bodyParser.urlencoded({
     extended: true
 }));
 router.use(upload());
 
+
+//get route
+router.get("/", async (req, res) => {
+    try {
+        const user = await isAuth(req);
+        if (user) {
+            res.status(200).render("login_registeration/buildprofile.ejs");
+        }
+        else {
+            res.status(401).send("bad request");
+        }
+    }
+    catch (err) {
+        res.status(401).send(err);
+    }
+});
 
 //adding more user details
 

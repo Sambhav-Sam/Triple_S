@@ -32,6 +32,7 @@ const userDetailSchema = new mongoose.Schema({
     superlikes:[],
     matches:[{
         userId : String,
+        name : String,
         roomId : String
     }],
     messages:[

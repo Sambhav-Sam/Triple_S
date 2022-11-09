@@ -37,31 +37,18 @@ app.use("/buildprofile", userdetails);
 
 //routes--------------------------------------------------
 
-app.get("/test", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            res.status(200).render("login_registeration/buildprofile.ejs");
-        }
-        else {
-            res.status(401).send("bad request");
-        }
-    }
-    catch (err) {
-        res.status(401).send(err);
-    }
-});
+
 
 app.get("/test2", async (req, res) => {
     try {
         const user = await isAuth(req);
         if (user) {
-            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } ,messages : 1});
+            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } ,messages : 1 ,matches : 1});
             const name = data.moreDetail.name;
             const messages = data.messages.reverse();
 
-            //fetching the match users name
-            const matches = await findMatches(user._id);
+            //fetching the match users details
+            const matches = data.matches;
 
             res.status(200).render("viewprofile/mainpage.ejs", { username: name, matches: matches ,messages : messages });
         }
