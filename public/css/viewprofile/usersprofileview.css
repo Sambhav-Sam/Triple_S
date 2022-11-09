@@ -340,6 +340,9 @@
   cursor: pointer;
   background-color: rgb(160, 155, 155) !important;
 }
+.less-opacity{
+  opacity: 0.4;
+}
 
 /* sos_model_box */
 .sos_model_box{

@@ -83,6 +83,7 @@ router.post("/", async (req, res) => {
                 //userdetail not found , create the user
                 const newdata = await new UserDetail({
                     _id: user._id,
+                    suscribed : false,
                     moreDetail: {
                         name: fname,
                         dob: dob,

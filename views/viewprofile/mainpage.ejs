@@ -43,6 +43,13 @@
             </div>
           </div>
         </navbar>
+
+<!-- user profile section ----------------------------------------------------  -->
+        <div>
+          
+        </div>
+
+<!-- main section --------------------------------------------------------  -->
         <div class="main">
           <div class="option">
             <button>
@@ -163,13 +170,13 @@
             </div>
             <div class="multi">
               <div class="circle">
-                <button onclick="undo()">
+                <button onclick="undo()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
                   <i class="fa-solid fa-rotate-left orange"></i>
                 </button>
                 <button onclick="skipUser()">
                   <i class="fa-solid fa-xmark red"></i>
                 </button>
-                <button onclick="superlikeuser()">
+                <button onclick="superlikeuser()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
                   <i class="fa-solid fa-star blue"></i>
                 </button>
                 <button onclick="likeUser()">

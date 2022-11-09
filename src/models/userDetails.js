@@ -6,6 +6,7 @@ const userDetailSchema = new mongoose.Schema({
         type: String
     },
     socketId :String ,
+    suscribed : Boolean,
     Number: {
         type: String,
         Num: String,

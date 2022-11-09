@@ -58,11 +58,11 @@ router.post("/likeuser", async (req, res) => {
         await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { likedUser: likedUserId } });
 
         //getting my name 
-        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 }});
+        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } });
         const myname = data.moreDetail.name;
 
         //cross checking the like in liked user
-        const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1 ,moreDetail:{name : 1}});
+        const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1, moreDetail: { name: 1 } });
         const otherusername = otherUser.moreDetail.name;
         const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
         if (otherUserlikedlist) {
@@ -71,8 +71,8 @@ router.post("/likeuser", async (req, res) => {
                 isviewed: false
             }
             const roomId = randomstring.generate(30) + Date.now();
-            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: { userId: user._id,name : myname , roomId: roomId } }, $push: { messages: message } });
-            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: { userId: likedUserId,name : otherusername , roomId: roomId } }, $push: { messages: message } });
+            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: { userId: user._id, name: myname, roomId: roomId } }, $push: { messages: message } });
+            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: { userId: likedUserId, name: otherusername, roomId: roomId } }, $push: { messages: message } });
         }
 
         const result = {
@@ -96,21 +96,29 @@ router.post("/superlikeuser", async (req, res) => {
         const sId = req.body.userid;
 
         //getting the name of the user
-        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } });
-        const name = data.moreDetail.name;
+        const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 }, suscribed: 1 });
+        if (data.suscribed) {
+            const name = data.moreDetail.name;
 
-        //creating a message for the user
-        const message = {
-            message: name + " likes your profile",
-            user: user._id,
-            isviewed: false
-        }
-        await UserDetail.findOneAndUpdate({ _id: sId }, { $addToSet: { superlikes: user._id }, $push: { messages: message } });
+            //creating a message for the user
+            const message = {
+                message: name + " likes your profile",
+                user: user._id,
+                isviewed: false
+            }
+            await UserDetail.findOneAndUpdate({ _id: sId }, { $addToSet: { superlikes: user._id }, $push: { messages: message } });
 
-        const result = {
-            status: 200
+            const result = {
+                status: 200
+            }
+            res.send(result);
+        } else {
+            const result = {
+                msg: "not a suscribed user",
+                status: 404,
+            }
+            res.send(result);
         }
-        res.send(result);
 
 
     } catch (error) {
@@ -146,8 +154,8 @@ router.post("/getprevioususer", async (req, res) => {
         const user = await isAuth(req);
 
         //getting previous user seen
-        const data = await UserDetail.findOne({ _id: user._id }).select({ viewedUser: { $slice: -1 } });
-        if (data.viewedUser) {
+        const data = await UserDetail.findOne({ _id: user._id }).select({ viewedUser: { $slice: -1 }, suscribed: 1 });
+        if (data.viewedUser && data.suscribed) {
             const prevUser = data.viewedUser[0];
 
             //deleting the previous user
@@ -174,6 +182,13 @@ router.post("/getprevioususer", async (req, res) => {
                 distance: distance
             }
             res.send(JSON.stringify(resultobject));
+        }
+        else {
+            const result = {
+                msg: "Bad request",
+                status: 404,
+            }
+            res.send(JSON.stringify(result));
         }
 
     } catch (error) {
