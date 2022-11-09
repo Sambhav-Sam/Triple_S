@@ -18,6 +18,10 @@ const userDetailSchema = new mongoose.Schema({
         city: String,
         postcode: String
     },
+    sos:{
+        lat: String,
+        lon: String
+    },
     moreDetail: {
         name: String,
         dob: Date,
