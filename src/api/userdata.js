@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const isAuth = require("../../routes/auth/isauth");
+const randomstring = require("randomstring");
 const axios = require('axios');
 const UserDetail = require("../models/userDetails");
 const findAge = require("../middleware/findage");
@@ -64,8 +65,9 @@ router.post("/likeuser", async (req, res) => {
                 message: "congratulations you get a new match with someone check your Match box now !!!!",
                 isviewed: false
             }
-            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: user._id } ,$push:{messages : message}});
-            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: likedUserId } ,$push :{messages : message} });
+            const roomId = randomstring.generate(30) + Date.now();
+            await UserDetail.findOneAndUpdate({ _id: likedUserId }, { $addToSet: { matches: { userId: user._id, roomId: roomId } }, $push: { messages: message } });
+            await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { matches: { userId: likedUserId, roomId: roomId } }, $push: { messages: message } });
         }
 
         const result = {
@@ -94,7 +96,7 @@ router.post("/superlikeuser", async (req, res) => {
 
         //creating a message for the user
         const message = {
-            message: name +" likes your profile",
+            message: name + " likes your profile",
             user: user._id,
             isviewed: false
         }

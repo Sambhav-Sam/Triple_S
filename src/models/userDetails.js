@@ -28,7 +28,10 @@ const userDetailSchema = new mongoose.Schema({
     likedUser: [],
     viewedUser:[],
     superlikes:[],
-    matches:[],
+    matches:[{
+        userId : String,
+        roomId : String
+    }],
     messages:[
         {
             message : String,
