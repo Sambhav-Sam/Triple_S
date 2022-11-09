@@ -20,7 +20,9 @@ const userDetailSchema = new mongoose.Schema({
     moreDetail: {
         name: String,
         dob: Date,
-        gender: Boolean
+        gender: String,
+        phone : String,
+        preference : String
     },
     userprofileimage: {
         path: String
