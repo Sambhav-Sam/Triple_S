@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
     if (result.status) {
       res.status(result.statuscode).redirect("/test2");
     } else {
-      res.status(result.statuscode).redirect("/login");
+      res.status(result.statuscode).redirect("/auth/login");
     }
 
 

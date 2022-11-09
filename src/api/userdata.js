@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const isAuth = require("../../routes/auth/isauth");
 const axios = require('axios');
+const randomstring = require("randomstring");
 const UserDetail = require("../models/userDetails");
 const findAge = require("../middleware/findage");
 const distanceInKmBetweenEarthCoordinates = require("../middleware/finddistance");
@@ -89,11 +90,12 @@ router.post("/likeuser", async (req, res) => {
         message: "congratulations you get a new match with someone check your Match box now !!!!",
         isviewed: false
       }
+      const roomId = randomstring.generate(30)+Date.now();
       await UserDetail.findOneAndUpdate({
         _id: likedUserId
       }, {
         $addToSet: {
-          matches: user._id
+          matches: {matchId : user._id,roomId : roomId}
         },
         $push: {
           messages: message
@@ -103,7 +105,7 @@ router.post("/likeuser", async (req, res) => {
         _id: user._id
       }, {
         $addToSet: {
-          matches: likedUserId
+          matches: {matchId : likedUserId,roomId : roomId}
         },
         $push: {
           messages: message
@@ -147,6 +149,7 @@ router.post("/superlikeuser", async (req, res) => {
       user: user._id,
       isviewed: false
     }
+    
     await UserDetail.findOneAndUpdate({
       _id: sId
     }, {

@@ -8,7 +8,7 @@ const findMatches = async (userid) => {
     matches: 1
   });
   const match_id = data.matches;
-  console.log("matches--------------------------------------------"+match_id);
+  console.log("matches--------------------------------------------" + match_id);
   const records = await UserDetail.find({
     '_id': {
       $in: match_id
@@ -18,7 +18,7 @@ const findMatches = async (userid) => {
       name: 1
     }
   });
-  console.log("records---------------------------------------"+records);
+  console.log("records---------------------------------------" + records);
   return records;
 }
 
