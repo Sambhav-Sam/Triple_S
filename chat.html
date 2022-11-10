@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/css/chat.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- <div class="container">
+      <div class="navbar">
+
+      </div>
+      <div class="message-area">
+
+      </div>
+      <div class="input-area">
+
+      </div>
+    </div> -->
+
+
+
+  <section id="messages__container">
+    <div class="data-div">
+      <h3>Sambhav Sharma</h3>
+    </div>
+
+    <div id="messages">
+
+    </div>
+    <div class="main-message">
+      <div class="socket-input">
+
+        <div class="final">
+          <input id="socket-chat" type="text" autocomplete="off" name="soc-message" placeholder="Send a message...." />
+          <button id="send" name="button">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js" type="text/javascript"></script>
+
+</html>

@@ -1,8 +1,11 @@
 //requiring external pakages
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 
 
 
@@ -11,12 +14,12 @@ const cookieParser = require("cookie-parser");
 const User = require("./src/models/userauth");
 
 
-const app = express();
+// const app = express();
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 app.use(cookieParser());
 
@@ -40,44 +43,87 @@ app.use("/buildprofile", userdetails);
 
 
 app.get("/test2", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            const data = await UserDetail.findOne({ _id: user._id }).select({ moreDetail: { name: 1 } ,messages : 1 ,matches : 1});
-            const name = data.moreDetail.name;
-            const messages = data.messages.reverse();
+  try {
+    const user = await isAuth(req);
+    if (user) {
+      const data = await UserDetail.findOne({
+        _id: user._id
+      }).select({
+        moreDetail: {
+          name: 1
+        },
+        messages: 1,
+        matches: 1
+      });
+      const name = data.moreDetail.name;
+      const messages = data.messages.reverse();
 
-            //fetching the match users details
-            const matches = data.matches;
+      //fetching the match users details
+      const matches = data.matches;
 
-            res.status(200).render("viewprofile/mainpage.ejs", { username: name, matches: matches ,messages : messages });
-        }
-        else {
-            res.status(401).redirect("/auth/login");
-        }
+      res.status(200).render("viewprofile/mainpage.ejs", {
+        username: name,
+        matches: matches,
+        messages: messages
+      });
+    } else {
+      res.status(401).redirect("/auth/login");
     }
-    catch (err) {
-        res.status(401).send(err);
-    }
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
 
 app.get("/working", async (req, res) => {
-    try {
-        const user = await isAuth(req);
-        if (user) {
-            res.status(200).send(user);
-        }
-        else {
-            res.status(401).send("bad request");
-        }
+  try {
+    const user = await isAuth(req);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("bad request");
     }
-    catch (err) {
-        res.status(401).send(err);
-    }
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
+
+
+
+
+
+
+var room;
+
+app.get("/chat/:roomId", (req, res) => {
+  room = req.params.roomId;
+  res.sendFile(__dirname + "/chat.html");
+});
+
+
+io.on("connection", function(socket) {
+  console.log("socket connected");
+  var room_name = socket.request.headers.referer; // link of page, where user connected to socket
+  console.log(room_name);
+  //connecting to room
+  socket.join(room_name);
+  socket.on('message', function(msg,id) {
+    socket.to(id).emit('message', msg);
+  });
+  // socket.on("message", (msg) => {
+  //   socket.broadcast.emit("message", msg, room);
+  // })
+});
+
+
+
+
+
+
+
+
 
 //port----------------------------------------------------
 const PORT = 3000;
-app.listen(PORT, (req, res) => {
-    console.log(`server started on port:${PORT}`);
+http.listen(PORT, (req, res) => {
+  console.log(`server started on port:${PORT}`);
 });
