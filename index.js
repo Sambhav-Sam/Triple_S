@@ -28,11 +28,13 @@ const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
 const UserDetail = require("./src/models/userDetails");
 const findMatches = require("./src/middleware/retrievematches");
+const sos = require("./routes/sos/sos");
 
 //-----------------------------------------
 app.use("/auth", Auth);
 app.use("/api", api);
 app.use("/buildprofile", userdetails);
+app.use("/sos",sos);
 
 
 //routes--------------------------------------------------

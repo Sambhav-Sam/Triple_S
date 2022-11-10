@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
         const { email, password } = req.body;
         const result = await findUser(email, password, res);
         if (result.status) {
-            const data = await UserDetail.findOne({ _id: result.userId }).select({ moreDetail: 1 });
+            const data = await UserDetail.findOne({ _id: result.userid }).select({ moreDetail: 1 });
             if (data && data.moreDetail) {
                 res.status(result.statuscode).redirect("/test2");
             }

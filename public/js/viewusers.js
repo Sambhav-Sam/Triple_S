@@ -1,5 +1,5 @@
 //currUser
-var currUser ="";
+var currUser = "";
 
 //getting element from javascript
 const showUserPic = document.getElementById("userpic");
@@ -9,7 +9,7 @@ const dist = document.getElementById("distance");
 
 //getting user data 
 
-const getUser = ()=>{
+const getUser = () => {
     fetch('/api/userpic', {
         method: 'POST',
         headers: {
@@ -29,7 +29,7 @@ const getUser = ()=>{
 }
 
 //liking the user
-const addUsertolikedList = async ()=>{
+const addUsertolikedList = async () => {
     fetch('/api/likeuser', {
 
         method: 'POST',
@@ -45,7 +45,7 @@ const addUsertolikedList = async ()=>{
 }
 
 //superliking the user
-const addUsertosuperlikedList = async ()=>{
+const addUsertosuperlikedList = async () => {
     fetch('/api/superlikeuser', {
 
         method: 'POST',
@@ -61,7 +61,7 @@ const addUsertosuperlikedList = async ()=>{
 }
 
 //saving the viewed user
-const saveUser = async ()=>{
+const saveUser = async () => {
     fetch('/api/saveuser', {
         method: 'POST',
         headers: {
@@ -76,7 +76,7 @@ const saveUser = async ()=>{
 }
 
 //getting previous user 
-const previousUser = async ()=>{
+const previousUser = async () => {
     fetch('/api/getprevioususer', {
         method: 'POST',
         headers: {
@@ -95,49 +95,78 @@ const previousUser = async ()=>{
     });
 }
 
+//sending the location to the server (sos)
+const fetchcoordinates = async (position)=>{
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    fetch('/api/sos/setsos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({ lat: lat , lon: lon})
+        }).then((res) => {
+            return res.json();
+        }).then((fres) => {
+            console.log(fres);
+        });
+}
+
+//fetching the coordinates of the user
+const sendlocation = async () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchcoordinates);
+
+    } else {
+        console.log("geolocation is not supported by the browser");
+    }
+}
+sendlocation();
+
 //intial getUser calling
 getUser();
 
 //function calling on keyboard key press
-document.addEventListener("keydown",function(event){
+document.addEventListener("keydown", function (event) {
     const key = event.key;
     console.log(key);
-    if(key=="ArrowRight")
+    if (key == "ArrowRight")
         likeUser();
-    if(key=="ArrowLeft")
+    if (key == "ArrowLeft")
         skipUser();
 });
 
 //when we skip the user
-const skipUser=async ()=>{
+const skipUser = async () => {
     await saveUser();
     getUser();
-    console.log(`you skip the user : ${currUser}` );
+    console.log(`you skip the user : ${currUser}`);
 }
 
 
 //when we like the user
-const likeUser= async ()=>{
+const likeUser = async () => {
     await addUsertolikedList();
     await saveUser();
     await getUser();
-    
-    console.log(`you liked the user : ${currUser}` );
+
+    console.log(`you liked the user : ${currUser}`);
     console.log("now you can go ahead");
 }
 
 //when we press the undo key
-const undo = async ()=>{
+const undo = async () => {
     previousUser();
 }
 
 //when we press the superlike key
-const superlikeuser = async ()=>{
+const superlikeuser = async () => {
     console.log("super like button is pressed");
     await addUsertolikedList();
     await addUsertosuperlikedList();
     await saveUser();
     getUser();
-    
+
 }
 

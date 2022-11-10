@@ -22,6 +22,7 @@ const userDetailSchema = new mongoose.Schema({
         lat: String,
         lon: String
     },
+    soslink : String,
     moreDetail: {
         name: String,
         dob: Date,
