@@ -1,0 +1,190 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+  --primarycolor:hsl(179, 93%, 44%);
+  --blue:hsl(183, 100%, 35%);
+  --lightblue:hsl(183, 49%, 63%);
+  --secondarycolor:hsl(217, 10%, 25%);
+  --Backgroundcolor:hsl(216, 19%, 16%);
+  --white:hsl(0, 0%, 100%);
+  --darkishwhite:hsl(0, 0%, 78%);
+}
+
+
+#send i{
+color:white;
+}
+
+#send{
+  background-color:#1a1a1a;
+  border:none;
+  cursor:pointer;
+}
+
+
+/* .container{
+  height:100vh;
+  width:100vw;
+  display:flex;
+  flex-direction:column;
+}
+
+.navbar{
+  flex:0.1;
+  background-color: red;
+}
+.message-area{
+  flex:0.8;
+  background-color: blue;
+}
+.input-area{
+  flex:0.1;
+  background-color: white;
+} */
+.message{
+  width:100%;
+}
+.mess_i{
+  background-color:white;
+  width:fit-content;
+  height:fit-content;
+  padding:5px;
+  margin:20px;
+}
+.mess_o{
+  background-color:white;
+  width:fit-content;
+  height:fit-content;
+  padding:5px;
+  margin:20px;
+  float:right;
+}
+
+
+.outgoing p{
+  color:black;
+  font-size: 19px;
+  margin:0px 10px;
+}
+
+.outgoing h3{
+  margin:0px 10px;
+}
+
+.outgoing h3{
+  color:red;
+}
+
+
+
+.incoming h3{
+  margin:0px 10px;
+  color:var(--primarycolor);
+}
+.incoming p{
+  color:black;
+  font-size: 19px;
+  margin:0px 10px;
+}
+
+
+#messages__container {
+  display: flex;
+  flex-direction: column;
+  /* height:100vh; */
+  background-color: #262625;
+  /* right: 0; */
+  /* position:fixed; */
+  /* width: 100%; */
+  border-left: 1px solid #111;
+  height:100vh!important;
+}
+
+.data-div{
+  background-color: var(--primarycolor);
+  flex:0.08;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.data-div{
+  color:#fff;
+}
+.main-message{
+  flex:0.06;
+  background-color: #1a1a1a;
+  width:100%;
+  padding:8px;
+}
+
+#messages {
+  width: 100%;
+  /* height: 100%; */
+  flex:0.85;
+  overflow-y: auto;
+  display:flex;
+  flex-direction:column;
+}
+
+/*
+#message__form {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: block;
+  background-color: #1a1a1a;
+  padding: 0.5em 1em 1em 1em;
+} */
+
+.socket-input input {
+  color: #fff;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 18px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #3f434a;
+}
+
+.socket-input input:focus {
+  outline: none;
+}
+
+.socket-input input::placeholder {
+  color: #707575;
+}
+
+.send{
+  background-color: #1a1a1a;
+  border:none;
+}
+
+#socket-chat{
+  flex:0.99;
+  margin-right:10px;
+}
+
+i{
+  color:white;
+  font-size:20px;
+}
+.final{
+  display:flex;
+}
+
+.chat-btn{
+  position: absolute;
+  right:40px;
+}
+
+.chat-btn i{
+  margin-right:50px;
+  cursor:pointer;
+}

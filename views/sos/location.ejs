@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUPIT-SOS</title>
+
+    <!-- leaflet css  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
+
+<!-- leaflet js  -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Map initialization
+    var map = L.map('map').setView([14.0860746, 100.608406], 6);
+
+    //osm layer
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    osm.addTo(map);
+
+    //getting the the sosid 
+    const url = window.location.href;
+    const sosId = url.slice(26);
+    const fetchurl = "/api/sos/"+sosId;
+
+    setInterval(() => {
+        fetch(fetchurl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ sosId : sosId })
+    }).then((res) => {
+        return res.json();
+    }).then((fres) => {
+        const lat = fres.lat;
+        const lon = fres.lon;
+        const obj = {
+            lat : lat ,
+            lon : lon
+        }
+        getPosition(obj);
+    });
+    }, 5000);
+
+    var marker, circle;
+
+    function getPosition(position) {
+        lat = position.lat;
+        long = position.lon;
+
+        if (marker) {
+            map.removeLayer(marker)
+        }
+
+        if (circle) {
+            map.removeLayer(circle)
+        }
+
+        marker = L.marker([lat, long])
+        circle = L.circle([lat, long])
+
+        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+
+        map.fitBounds(featureGroup.getBounds())
+    }
+</script>

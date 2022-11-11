@@ -18,7 +18,7 @@
             />
           </div>
           <div class="formBx">
-            <form action="/login" method="post">
+            <form action="/auth/login" method="post">
               <h2>Sign In</h2>
               <input type="email" placeholder="Email" name="email" required="true">
               <input type="password" placeholder="Password" name="password" required="true">
@@ -33,17 +33,20 @@
 
         <div class="user signupBx">
           <div class="formBx">
-            <form action="/register" method="post">
+            <form action="/auth/register" method="post">
               <h2>Create an account</h2>
               <input type="text" placeholder="Username" name="username" required="true">
               <input type="email" placeholder="Email Address" name="email" required="true">
               <input type="password" placeholder="Create Password" name="password" required="true">
               <input type="password" placeholder="Confirm Password" name="confirmPassword" required="true">
-                <input type="submit" value="Sign Up">
+              <div class="signup_btn">
+                <input class="signup_button" type="submit" value="Sign Up">
+              </div>
               <p class="signup">
                 Already have an account?
                 <a href="#" onclick="toggleForm()">Sign in.</a>
               </p>
+              <button class="signup_button2" onclick="googleAuth()">Sign Up With Google</button>
             </form>
           </div>
           <div class="imgBx">
@@ -62,6 +65,11 @@
           container.classList.toggle('active');
           section.classList.toggle('active');
       }
+
+      const googleAuth = async () =>{
+        window.location.replace("http://localhost:3000/auth/google");
+      }
+
     </script>
   </body>
 </html>

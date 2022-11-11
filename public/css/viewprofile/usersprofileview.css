@@ -1,0 +1,369 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fafafa;
+  font-family: "Baloo Bhai 2", cursive;
+}
+/* <----------Container-----------------> */
+.container {
+  position: relative;
+  min-height: calc(100vh - 250px);
+  display: block;
+}
+.box {
+  display: flex;
+}
+.left {
+  flex: 0.3;
+  background-color: #000;
+  border-right: 0.1px solid rgb(76, 73, 73);
+}
+.right {
+  /* color: black; */
+  flex: 0.7;
+  background-color: rgb(17, 20, 24);
+}
+.navbar {
+  background-color: rgb(254, 64, 91);
+  display: flex;
+  padding: 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+.space {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.margin{
+  margin: 10px 18px;
+}
+.log{
+  border-top: 2px solid black;
+}
+.logo img {
+  height: 40px;
+  width: 40px;
+  /* margin-right: 15px; */
+  border-radius: 50%;
+}
+.logo button{
+  background: black;
+  border: none;
+  margin-right:15px;
+  border-radius: 50%;
+  display:flex;
+}
+.logo button:hover{
+  cursor: pointer;
+}
+.option {
+  padding: 8px 18px;
+  display: flex;
+}
+.option h4 {
+  margin-right: 20px;
+  font-size: 17px;
+  width: 100%;
+  cursor: pointer;
+}
+.option button{
+  background-color: transparent;
+  margin-right: 10px;
+}
+.active {
+  border-bottom: 3px solid red;
+}
+.match {
+  width: 100%;
+  background-color: rgb(62, 60, 60);
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+#match a{
+  text-decoration: none;
+}
+.match:hover{
+  background-color: rgb(86, 87, 87);
+  cursor: pointer;
+}
+.match_message {
+  margin-top: -6px;
+}
+.match_info {
+  display: flex;
+  width: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+.time {
+  display: flex;
+  align-items: center;
+  margin: 13px;
+  margin-top: 0px;
+}
+.hide{
+  display: none;
+}
+/* .show{
+  display: block !important;
+} */
+.two button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.small{
+  font-size: 18px !important;
+  padding: 0px !important;
+}
+.small-lg{
+  font-size: 13px !important;
+  padding: 5px 0px !important;
+}
+.small:hover{
+  color: skyblue !important;
+}
+.user img {
+  height: 50px;
+  width: 50px;
+  margin-top: 15px;
+  margin-right: 10px;
+  /* padding-top: 15px; */
+  border-radius: 50%;
+  object-fit: contain;
+}
+.matching {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.matching img {
+  filter: invert(1);
+  height: 260px;
+  width: 260px;
+}
+.matching p {
+  width: 70%;
+  color: rgb(168, 165, 165);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 583px;
+  justify-content: center;
+}
+
+.content {
+  margin: 10px 20px;
+  border-radius: 20px;
+  background: #f3f2f2;
+  height: 412px;
+}
+.content img {
+  height: 441px;
+  border-radius: 10px 10px 0 0;
+  object-fit: contain;
+}
+.circle {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.circle button {
+  border: none;
+  background: transparent;
+  height: 50px;
+  width: 50px;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+.circle img {
+  /* display: none; */
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+}
+.fa-solid{
+  font-size:30px;
+  padding: 8px;
+}
+.orange{
+  border: 1px solid orange;
+  border-radius: 50%;
+  color: orange;
+  transition: all 0.2s ease-in-out;
+}
+.orange:hover{
+  background-color:orange;
+  color: black;
+  cursor: pointer;
+  font-size:35px;
+  transition: all 0.2s ease-in-out;
+}
+.blue:hover{
+  background-color:skyblue;
+  color: black;
+  cursor: pointer;
+  font-size:35px;
+  transition: all 0.2s ease-in-out;
+}
+.green:hover{
+  background-color:lightgreen;
+  color: black;
+  cursor: pointer;
+  font-size:35px;
+  transition: all 0.2s ease-in-out;
+}
+.red:hover{
+  background-color:red;
+  color: black;
+  cursor: pointer;
+  font-size:35px;
+  padding: 8px;
+  transition: all 0.2s ease-in-out;
+}
+.purple:hover{
+  background-color:#ad04ad;
+  color: black;
+  cursor: pointer;
+  font-size:35px;
+  transition: all 0.2s ease-in-out;
+}
+.blue{
+  border: 1px solid skyblue;
+  border-radius: 50%;
+  padding: 10px;
+  color: skyblue;
+  transition: all 0.2s ease-in-out;
+}
+.green{
+  border: 1px solid lightgreen;
+  border-radius: 50%;
+  color: lightgreen;
+  transition: all 0.2s ease-in-out;
+  padding: 11px;
+}
+.purple{
+  border: 1px solid #ad04ad;
+  border-radius: 50%;
+  color: #ad04ad;
+  transition: all 0.2s ease-in-out;
+  padding: 11px;
+}
+.red{
+  border: 1px solid red;
+  transition: all 0.2s ease-in-out;
+  border-radius: 50%;
+  color: red;
+  height: 50px;
+  padding: 9px;
+  width: 50px;
+}
+.white{
+  display:flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color:grey !important;
+  font-size: 18px !important;
+}
+.white p{
+  margin-left:6px;
+  color:grey;
+  font-size: 14px;
+}
+.multi {
+  margin-top: -9px;
+  border-radius: 0 0 10px 10px;
+  background-color: rgb(38, 36, 36);
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+}
+.multi img {
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+}
+.about {
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  position: absolute;
+  top: 444px;
+  margin: 8px;
+}
+.first {
+  display: flex;
+  align-items: baseline;
+}
+.second {
+  width: 137%;
+  display: flex;
+  justify-content: space-between;
+}
+.one {
+  display: flex;
+}
+.one h4 {
+  margin-left: 15px;
+}
+.second img {
+  height: 20px;
+  width: 20px;
+}
+.about h2 {
+  margin-right: 20px;
+}
+.info {
+  margin-top: 104px;
+}
+.instruction{
+  display: flex;
+  padding-bottom: 22px;
+  align-items: center;
+  justify-content: center;
+}
+.instruction button{
+  border: none;
+  background: transparent;
+  /* height: 50px;
+  width: 50px; */
+  margin-top: 10px;
+  border-radius: 50%;
+}
+.instruction_first{
+  background-color: grey !important;
+  border: 1px solid grey !important;
+  border-radius: 35% !important;
+  height: 25px !important;
+  width: 40px !important;
+}
+.instruction_first:hover{
+  cursor: pointer;
+  background-color: rgb(160, 155, 155) !important;
+}
+.less-opacity{
+  opacity: 0.4;
+}
+
+/* sos_model_box */
+.sos_model_box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -150px;
+  height: 300px;
+  width: 400px;
+  z-index: 3;
+  background-color: peachpuff;
+  box-shadow: 0 15px 50px black;
+}

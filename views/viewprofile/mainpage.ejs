@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CUPIT</title>
+  <link rel="stylesheet" href="css/viewprofile/usersprofileview.css" />
+  <script src="https://kit.fontawesome.com/9542957272.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="box">
+      <div class="left">
+        <navbar class="navbar">
+          <div class="space">
+            <div class="logo" onclick="showProfile()">
+              <img src="https://avatars.dicebear.com/api/avataaars/<%=username%>.svg" alt="" />
+            </div>
+            <div class="name" onclick="showProfile()">
+              <h3>
+                <%=username%>
+              </h3>
+            </div>
+          </div>
+          <div class="space">
+            <div class="logo">
+              <button>
+                <i class="fa-solid fa-icons"></i>
+              </button>
+            </div>
+            <div class="logo">
+              <button>
+                <i class="fa-solid fa-briefcase"></i>
+              </button>
+            </div>
+            <div class="logo">
+              <button>
+                <i class="fa-solid fa-shield"></i>
+              </button>
+            </div>
+          </div>
+        </navbar>
+
+<!-- user profile section ----------------------------------------------------  -->
+        <div id ="userProfile" class="hide" >
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Buy Subscription @ 10</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+          </div>
+
+          <div id="match">
+            <div class="match" onclick="sendsos()">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Send Sos</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Logout</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+            </a>
+          </div>
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+
+<!-- main section --------------------------------------------------------  -->
+        <div class="main" id="main">
+          <div class="option">
+            <button>
+              <h4 class="active" id="matchwindow" onclick="matchwindow()">Matches</h4>
+            </button>
+            <button>
+              <h4 id="messagewindow" onclick="messagewindow()">Messages</h4>
+            </button>
+          </div>
+
+          <!-- Matches section ------------------------------------------------------- -->
+          <div id="match">
+            <% if(matches.length){%>
+            <% matches.forEach(element =>{ %>
+            <a href="/chat/<%=element.id%>">
+              <div class="match">
+                <div class="user">
+                  <img src="https://avatars.dicebear.com/api/avataaars/<%=element.name%>.svg" alt="">
+                </div>
+                <div class="match_info">
+                  <div class="matched">
+                    <div class="match_name">
+                      <h3><%=element.name%></h3>
+                    </div>
+                    <div class="match_message">
+                      <p>xyzabc:</p>
+                    </div>
+                    <div class="line"></div>
+                  </div>
+                  <div class="time">
+                    <p>xyzabc</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <% }); %>
+            <%}else{%>
+            <div class="matching">
+              <img src="/images/match.png" alt="" />
+              <h1>Start Matching</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Officia quaerat, deleniti corrupti id quasi ex saepe odit
+                molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
+                est asperiores ipsa?
+              </p>
+            </div>
+            <%}%>
+          </div>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<!-- Messages section ------------------------------------------------------- -->
+<div id="message" class="hide">
+<% if(messages.length){%>
+            <% messages.forEach(element =>{ %>
+            <div class="match">
+              <div class="user">
+                <img src="https://avatars.dicebear.com/api/avataaars/<%=element.message%>.svg" alt="">
+              </div>
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name">
+                    <h3><%=element.message%></h3>
+                  </div>
+                  <div class="match_message">
+                    <p>xyzabc:</p>
+                  </div>
+                  <div class="line"></div>
+                </div>
+                <div class="time">
+                  <p>xyzabc</p>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+            <%}else{%>
+            <div class="matching">
+              <img src="/images/match.png" alt="" />
+              <h1>Start Matching</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Officia quaerat, deleniti corrupti id quasi ex saepe odit
+                molestias cum ullam quis, ab maiores. Rerum, fuga illum porro
+                est asperiores ipsa?
+              </p>
+            </div>
+            <%}%>
+</div>
+<!-- ----------------------------------------------------------------------------------------- -->
+
+        </div>
+<!-- sos model box ------------------------------------------------------------  -->
+<div class="sos_model_box" hidden>
+
+</div>
+<!-- -------------------------------------------------------------------------------  -->
+
+</div>
+<!-- left ends here -->
+      <div class="right">
+        <div class="card">
+          <div class="content">
+            <img id="userpic" src="" alt="" />
+            <div class="about">
+              <div class="first">
+                <h2 id="username"></h2>
+                <h3 id="userage"></h3>
+              </div>
+              <div class="second">
+                <div class="one">
+                  <i class="fa-solid fa-location-dot small-lg"></i>
+                  <h4><span id="distance"></span> kilometres away</h4>
+                </div>
+                <div class="two">
+                  <button>
+                    <i class="fa-solid fa-circle-info small"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="multi">
+              <div class="circle">
+                <button onclick="undo()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
+                  <i class="fa-solid fa-rotate-left orange"></i>
+                </button>
+                <button onclick="skipUser()">
+                  <i class="fa-solid fa-xmark red"></i>
+                </button>
+                <button onclick="superlikeuser()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
+                  <i class="fa-solid fa-star blue"></i>
+                </button>
+                <button onclick="likeUser()">
+                  <i class="fa-solid fa-heart green"></i>
+                </button>
+                <button>
+                  <i class="fa-solid fa-bolt purple"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <div class="instruction">
+            <button class="instruction_first">
+              <h3>HIDE</h3>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-arrow-left white">
+                <p>NOPE</p>
+              </i>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-arrow-right white">
+                <p>LIKE</p>
+              </i>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-arrow-up white">
+                <p>OPEN PROFILE</p>
+              </i>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-arrow-down white">
+                <p>CLOSE PROFILE</p>
+              </i>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-arrow-right-to-bracket white">
+                <p>SUPER LIKE</p>
+              </i>
+            </button>
+            <button class="white">
+              <i class="fa-solid fa-delete-left white">
+                <p>NEXT PHOTO</p>
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/viewusers.js"></script>
+  <script src="/js/options.js"></script>
+</body>
+
+</html>

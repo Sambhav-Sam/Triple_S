@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+  <script src="https://kit.fontawesome.com/9542957272.js" crossorigin="anonymous"></script>
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/login_reg/profileverification.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="web">
+      <video id="webcam" class="webcam" autoplay playsinline></video>
+    </div>
+    <div class="button">
+      <div class="snap">
+        <button class="btn" id="takesnap"><i class="fa-solid fa-camera space"></i>Take Snap</button>
+      </div>
+      <div class="canva">
+        <canvas id="canvas" class="d-none"></canvas>
+      </div>
+      <div class="snap2">
+        <button class="btn" onclick="upload()" id="upload"><i class="fa-solid fa-upload space"></i>Upload Image</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+    const webcamElement = document.getElementById("webcam");
+    const canvasElement = document.getElementById("canvas");
+    const clickbutton = document.getElementById("takesnap");
+    const webcam = new Webcam(webcamElement, "user", canvasElement);
+
+    //start webcam
+    webcam
+      .start()
+      .then((result) => {
+        console.log("webcam started");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //snapshot
+    clickbutton.addEventListener("click", () => {
+      let picture = webcam.snap();
+    });
+
+    // sending data to server
+    const upload = async () => {
+      canvasElement.toBlob((blob) => {
+        const file = new File([blob], "liveimage.png");
+        // add the file to the FormData object
+        const fd = new FormData();
+        fd.append("image", file);
+
+        // send `POST` request
+        fetch("/api/imgverify", {
+          method: "POST",
+          body: fd,
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            console.log(json.status);
+            if(json.status === 200)
+            {
+              window.location.replace("http://localhost:3000/viewprofile");
+            }
+          })
+          .catch((err) => console.error(err));
+      });
+    };
+  </script>
+</body>
+
+</html>

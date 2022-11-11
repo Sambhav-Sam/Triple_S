@@ -6,6 +6,7 @@ const path = require("path");
 const randomstring = require("randomstring");
 const isAuth = require("./isauth");
 const VerifyUser = require("../../src/models/verification");
+const User = require("../../src/models/userauth");
 
 const router = express.Router();
 router.use(express.static("public"));
@@ -28,14 +29,20 @@ router.get("/", async (req, res) => {
         if (user) {
             const code = randomstring.generate(30);
             const id = user._id;
-            const newUser = new VerifyUser({
-                _id: id,
-                code: code
-            });
-            const result = await newUser.save();
-            console.log(result);
+            const verifyid = await VerifyUser.findOne({_id : id });
+            if(verifyid)
+            {
+                await VerifyUser.findOneAndUpdate({_id : id},{code : code});
+            }
+            else{
+                const newUser = new VerifyUser({
+                    _id: id,
+                    code: code
+                });
+                await newUser.save();
+            }
+            
             const url = "http://localhost:3000/auth/verifyemail/" + code + id;
-            console.log(url);
             const filepath = path.join(__dirname, "../../views/login_registeration/verifyemail.ejs")
             const html = await ejs.renderFile(filepath, { username: user.username, email: user.email, url: url });
 
@@ -52,7 +59,7 @@ router.get("/", async (req, res) => {
                     res.send(error);
                 } else {
                     console.log('Email sent: ' + info.response);
-                    res.send("a verification has been sent to your email");
+                    res.status(200).render("login_registeration/email_confirm.ejs");
                 }
             });
 
@@ -76,7 +83,11 @@ router.get("/:verificationlink", async (req, res) => {
         const data = await VerifyUser.findOne({ _id: userId });
         if(data.code===code)
         {
-            res.send("user verified successfully");
+            const filter  = {_id : userId};
+            const update = {verify : true};
+            await User.findOneAndUpdate(filter, update);
+            await VerifyUser.findByIdAndRemove(userId);
+            res.redirect("/buildprofile/userdetails");
         }
         else{
             console.log("code doesn't match");

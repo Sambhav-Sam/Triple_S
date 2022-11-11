@@ -15,6 +15,7 @@ const createUser = async (username, email, password) => {
         const newuser = new User({
             username: username,
             email: email,
+            verify : false,
             salt: salt,
             hash: hash,
         })

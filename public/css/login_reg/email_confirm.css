@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Baloo Bhai 2", cursive;
+}
+
+.container {
+  height: 100vh;
+}
+.container::before {
+  content: " ";
+  background: url("/images/b938bb7d-2dc8-408d-a8f1-9c817c71aa63.jpg") no-repeat center center/cover;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.image img {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info h2 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button button {
+  background-color: rgb(219, 49, 135);
+  border: none;
+  width: 40%;
+  height: 60px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+.button button:hover {
+  background-color: #d61778;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+  font-size: 19px;
+}
+
+@media screen and (max-width: 600px) {
+  .button button {
+    font-size: 14px;
+    width: 60%;
+    height: 50px;
+  }
+  .button button:hover {
+    font-size: 15px;
+  }
+  .info h2 {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .button button {
+    font-size: 13px;
+    width: 70%;
+    height: 50px;
+  }
+  .button button:hover {
+    font-size: 14px;
+  }
+  .info h2 {
+    font-size: 20px;
+  }
+}
