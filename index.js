@@ -34,6 +34,9 @@ const viewprofile = require("./routes/viewprofiles");
 const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
 const sos = require("./routes/sos/sos");
+const UserDetail = require("./src/models/userDetails");
+const isAuth = require("./routes/auth/isauth");
+const Chat = require("./src/models/chat");
 
 //-----------------------------------------
 app.use("/auth", Auth);
@@ -55,33 +58,32 @@ app.get("/",async (req,res)=>{
 });
 
 
-app.get("*",async (req,res)=>{
-    res.status(404).render("error404/error.ejs");
-});
+
 app.get("/call/room.html",(req,res)=>{
   res.sendFile(__dirname+"/room.html");
-})
-
-app.get("/working", async (req, res) => {
-  try {
-    const user = await isAuth(req);
-    if (user) {
-      res.status(200).send(user);
-    } else {
-      res.status(401).send("bad request");
-    }
-  } catch (err) {
-    res.status(401).send(err);
-  }
 });
 
 
 
 var room;
 
-app.get("/chat/:roomId", (req, res) => {
-  room = req.params.roomId;
-  res.sendFile(__dirname + "/chat.html");
+app.get("/chat/:roomId", async (req, res) => {
+  const user = await isAuth(req); 
+  const roomId = req.params.roomId;
+  const data = await UserDetail.findOne({_id : user._id}).select({matches : 1});
+  const matches = data.matches;
+  const object = matches.filter(element => element.roomId == roomId);
+  const anotherUser = await UserDetail.findOne({_id : object[0].userId}).select({moreDetail : {name : 1}});
+  console.log(anotherUser);
+  const name = anotherUser.moreDetail.name;
+  const chats = await Chat.findOne({roomId : roomId});
+  if(chats)
+  {
+  res.render("chat/chat.ejs",{name : name , chats : chats.chat , id : user._id});
+  }
+  else{
+    res.render("chat/chat.ejs",{name : name , chats : [] , id : user._id});
+  }
 });
 
 app.get("/call/:callid", (req, res) => {
@@ -105,6 +107,10 @@ io.on("connection", function(socket) {
   // })
 });
 
+//wild route
+app.get("*",async (req,res)=>{
+  res.status(404).render("error404/error.ejs");
+});
 
 //port----------------------------------------------------
 const PORT = 3000;

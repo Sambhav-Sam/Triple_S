@@ -6,6 +6,7 @@ const axios = require('axios');
 const UserDetail = require("../models/userDetails");
 const findAge = require("../middleware/findage");
 const distanceInKmBetweenEarthCoordinates = require("../middleware/finddistance");
+const User = require("../models/userauth");
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -19,28 +20,40 @@ router.post("/userpic", async (req, res) => {
         const user = await isAuth(req);
 
         //getting users data
-        const data = await UserDetail.aggregate([{ $match: { _id: { $ne: user._id } } },
-        { $sample: { size: 1 } }]).exec();
-        const userdata = data[0];
-        const imgurl = "/uploads/" + userdata.userprofileimage.path;
+        const getdata = async () => {
+            let data = await UserDetail.aggregate([{ $match: { _id: { $ne: user._id } } },
+            { $sample: { size: 1 } }]).exec();
+            let userdata = data[0];
+            if (userdata._id != user.id) {
+                const imgurl = "/uploads/" + userdata.userprofileimage.path;
 
-        //getting our coordinates from database
-        const mycoordinates = await UserDetail.findOne({ _id: user._id }).select({ location: 1 });
+                //getting our coordinates from database
+                const mycoordinates = await UserDetail.findOne({ _id: user._id }).select({ location: 1 });
 
-        //getting userAge
-        const age = await findAge(userdata._id);
+                //getting userAge
+                const age = await findAge(userdata._id);
+
+                //getting verification of the user
+                const data2 = await User.findOne({ _id: userdata._id }).select({ verify: 1 });
+                const verify = data2.verify;
 
 
-        //getting distance
-        const distance = await distanceInKmBetweenEarthCoordinates(mycoordinates.location.lat, mycoordinates.location.lon, userdata.location.lat, userdata.location.lon);
-        const resultobject = {
-            imgurl: imgurl,
-            userid: userdata._id,
-            name: userdata.moreDetail.name,
-            age: age,
-            distance: distance
+                //getting distance
+                const distance = await distanceInKmBetweenEarthCoordinates(mycoordinates.location.lat, mycoordinates.location.lon, userdata.location.lat, userdata.location.lon);
+                const resultobject = {
+                    imgurl: imgurl,
+                    userid: userdata._id,
+                    name: userdata.moreDetail.name,
+                    age: age,
+                    distance: distance,
+                    verify: verify
+                }
+                res.send(JSON.stringify(resultobject));
+            } else {
+                getdata();
+            }
         }
-        res.send(JSON.stringify(resultobject));
+        getdata();
 
     } catch (error) {
         console.log(error);
@@ -53,6 +66,7 @@ router.post("/likeuser", async (req, res) => {
         //authenticating user
         const user = await isAuth(req);
 
+        console.log("hello");
         //getting liked user data
         const likedUserId = req.body.userid;
         await UserDetail.findOneAndUpdate({ _id: user._id }, { $addToSet: { likedUser: likedUserId } });
@@ -64,7 +78,7 @@ router.post("/likeuser", async (req, res) => {
         //cross checking the like in liked user
         const otherUser = await UserDetail.findOne({ _id: likedUserId }).select({ likedUser: 1, moreDetail: { name: 1 } });
         const otherusername = otherUser.moreDetail.name;
-        const otherUserlikedlist = otherUser.likedUser.find(element => element = user._id);
+        const otherUserlikedlist = otherUser.likedUser.find(element => element == user._id);
         if (otherUserlikedlist) {
             const message = {
                 message: "congratulations you get a new match with someone check your Match box now !!!!",

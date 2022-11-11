@@ -9,8 +9,8 @@ const matchwindow = ()=>{
     document.getElementById("matchwindow").classList.add("active");
     document.getElementById("messagewindow").classList.remove("active");
 }
-
 const messagewindow = ()=>{
+    
     match.classList.add("hide");
     message.classList.remove("hide");
     document.getElementById("messagewindow").classList.add("active");

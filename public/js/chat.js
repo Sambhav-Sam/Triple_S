@@ -9,9 +9,30 @@ send.addEventListener('keyup',(e)=>{
   console.log(e.target.value);
   if(e.key==='Enter'){
     sendmessage(e.target.value);
+    sendData(e.target.value);
     e.target.value='';
   }
 });
+
+//sending message to the server
+const sendData = (message)=>{
+  const url=window.location.href;
+  const roomId=url.slice(27);
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      msg: message,
+      roomId : roomId
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    console.log(fres);
+  });
+}
 
 call.addEventListener("click",start_call);
 
@@ -43,7 +64,6 @@ function append(msg,type){
   if(type==="incoming"){
     markup=`
       <div class="mess_o">
-        <h3>sarthak</h3>
         <p>${msg}</p>
       </div>
     `
@@ -51,7 +71,6 @@ function append(msg,type){
   else{
     markup=`
       <div class="mess_i">
-        <h3>sarthak</h3>
         <p>${msg}</p>
       </div>
     `

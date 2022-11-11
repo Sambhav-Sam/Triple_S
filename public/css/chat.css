@@ -49,14 +49,14 @@ color:white;
 .message{
   width:100%;
 }
-.mess_i{
+.mess_o{
   background-color:white;
   width:fit-content;
   height:fit-content;
   padding:5px;
   margin:20px;
 }
-.mess_o{
+.mess_i{
   background-color:white;
   width:fit-content;
   height:fit-content;

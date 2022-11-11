@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const UserDetail = require("../src/models/userDetails");
 const isAuth = require("./auth/isauth");
+const User = require("../src/models/userauth");
 
 
 const router = express.Router();

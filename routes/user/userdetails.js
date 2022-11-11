@@ -36,8 +36,7 @@ router.post("/", async (req, res) => {
         const user = await isAuth(req);
         if (user) {
             const { fname, dob, gender, phone, Preference } = req.body;
-
-
+            const jdob = new Date(dob);
             //saving the files
             if (req.files) {
                 const file = req.files.image;
@@ -70,7 +69,7 @@ router.post("/", async (req, res) => {
                 const update = {
                     moreDetail: {
                         name: fname,
-                        dob: dob,
+                        dob: jdob,
                         gender: gender,
                         phone: phone,
                         preference: Preference
@@ -86,7 +85,7 @@ router.post("/", async (req, res) => {
                     suscribed : false,
                     moreDetail: {
                         name: fname,
-                        dob: dob,
+                        dob: jdob,
                         gender: gender,
                         phone: phone,
                         preference: Preference
