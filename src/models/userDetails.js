@@ -6,6 +6,7 @@ const userDetailSchema = new mongoose.Schema({
     type: String
   },
   socketId: String,
+  suscribed: Boolean,
   Number: {
     type: String,
     Num: String,
@@ -17,6 +18,11 @@ const userDetailSchema = new mongoose.Schema({
     city: String,
     postcode: String
   },
+  sos: {
+    lat: String,
+    lon: String
+  },
+  soslink: String,
   moreDetail: {
     name: String,
     dob: Date,
@@ -27,6 +33,9 @@ const userDetailSchema = new mongoose.Schema({
   userprofileimage: {
     path: String
   },
+  userliveimage: {
+    path: String
+  },
   likedUser: [],
   viewedUser: [],
   superlikes: [],
@@ -35,11 +44,13 @@ const userDetailSchema = new mongoose.Schema({
     name: String,
     roomId: String
   }],
-  messages: [{
-    message: String,
-    user: String,
-    isviewed: Boolean
-  }]
+  messages: [
+    {
+      message: String,
+      user: String,
+      isviewed: Boolean
+    }
+  ]
 });
 
 const UserDetail = new mongoose.model("userdetail", userDetailSchema);

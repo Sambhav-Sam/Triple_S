@@ -4,14 +4,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-
-
-
-
-//requiring database dependencies
-const User = require("./src/models/userauth");
 
 
 // const app = express();
@@ -22,59 +18,46 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
+app.use(cookieSession({
+    maxAge :24*60*60*1000,
+    keys : ['sambhavsarthaksambhav']
+}));
+
+//initialize
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //requiring internal dependencies
-const isAuth = require("./routes/auth/isauth");
 const userdetails = require("./routes/user/user");
+const viewprofile = require("./routes/viewprofiles");
 const Auth = require("./routes/auth/auth");
 const api = require("./src/api/api");
-const UserDetail = require("./src/models/userDetails");
-const findMatches = require("./src/middleware/retrievematches");
+const sos = require("./routes/sos/sos");
 
 //-----------------------------------------
 app.use("/auth", Auth);
 app.use("/api", api);
 app.use("/buildprofile", userdetails);
+app.use("/sos",sos);
+app.use("/",viewprofile);
 
 
 //routes--------------------------------------------------
 
-
-
-app.get("/test2", async (req, res) => {
-  try {
-    const user = await isAuth(req);
-    if (user) {
-      const data = await UserDetail.findOne({
-        _id: user._id
-      }).select({
-        moreDetail: {
-          name: 1
-        },
-        messages: 1,
-        matches: 1
-      });
-      const name = data.moreDetail.name;
-      const messages = data.messages.reverse();
-
-      //fetching the match users details
-      const matches = data.matches;
-
-      res.status(200).render("viewprofile/mainpage.ejs", {
-        username: name,
-        matches: matches,
-        messages: messages
-      });
-    } else {
-      res.status(401).redirect("/auth/login");
-    }
+app.get("/",async (req,res)=>{
+    try{
+        res.status(200).render("homepage/home.ejs");
+    
   } catch (err) {
     res.status(401).send(err);
   }
 });
 
 
+app.get("*",async (req,res)=>{
+    res.status(404).render("error404/error.ejs");
+});
 app.get("/call/room.html",(req,res)=>{
   res.sendFile(__dirname+"/room.html");
 })
@@ -91,9 +74,6 @@ app.get("/working", async (req, res) => {
     res.status(401).send(err);
   }
 });
-
-
-
 
 
 
@@ -124,13 +104,6 @@ io.on("connection", function(socket) {
   //   socket.broadcast.emit("message", msg, room);
   // })
 });
-
-
-
-
-
-
-
 
 
 //port----------------------------------------------------

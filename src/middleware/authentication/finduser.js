@@ -20,7 +20,8 @@ const findUser = async (email, password,res) => {
                 });
                 const result = {
                     status : true,
-                    statuscode : 200
+                    statuscode : 200,
+                    userid : user._id
                 }
                 return result;
             }

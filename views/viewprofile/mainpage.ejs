@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cupit</title>
+  <title>CUPIT</title>
   <link rel="stylesheet" href="css/viewprofile/usersprofileview.css" />
   <script src="https://kit.fontawesome.com/9542957272.js" crossorigin="anonymous"></script>
 </head>
@@ -16,10 +16,10 @@
       <div class="left">
         <navbar class="navbar">
           <div class="space">
-            <div class="logo">
+            <div class="logo" onclick="showProfile()">
               <img src="https://avatars.dicebear.com/api/avataaars/<%=username%>.svg" alt="" />
             </div>
-            <div class="name">
+            <div class="name" onclick="showProfile()">
               <h3>
                 <%=username%>
               </h3>
@@ -43,7 +43,56 @@
             </div>
           </div>
         </navbar>
-        <div class="main">
+
+<!-- user profile section ----------------------------------------------------  -->
+        <div id ="userProfile" class="hide" >
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Buy Subscription @ 10</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+          </div>
+
+          <div id="match">
+            <div class="match" onclick="sendsos()">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Send Sos</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Logout</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+            </a>
+          </div>
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+
+<!-- main section --------------------------------------------------------  -->
+        <div class="main" id="main">
           <div class="option">
             <button>
               <h4 class="active" id="matchwindow" onclick="matchwindow()">Matches</h4>
@@ -167,13 +216,13 @@
             </div>
             <div class="multi">
               <div class="circle">
-                <button onclick="undo()">
+                <button onclick="undo()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
                   <i class="fa-solid fa-rotate-left orange"></i>
                 </button>
                 <button onclick="skipUser()">
                   <i class="fa-solid fa-xmark red"></i>
                 </button>
-                <button onclick="superlikeuser()">
+                <button onclick="superlikeuser()" <%if(!suscribed){%>disabled class="less-opacity"<%}%>>
                   <i class="fa-solid fa-star blue"></i>
                 </button>
                 <button onclick="likeUser()">

@@ -1,0 +1,21 @@
+body{
+    background-color: black;
+  
+  }
+  
+  .card{
+    position: absolute;
+    top: 200px;
+    left: 600px;;
+  }
+  
+  .card-img-top{
+    height: 200px;
+    width: 200px;
+    margin-left: 100px;
+  }
+  .card-body{
+    text-align: center;
+  
+  }
+  

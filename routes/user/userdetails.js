@@ -83,6 +83,7 @@ router.post("/", async (req, res) => {
                 //userdetail not found , create the user
                 const newdata = await new UserDetail({
                     _id: user._id,
+                    suscribed : false,
                     moreDetail: {
                         name: fname,
                         dob: dob,
@@ -95,6 +96,11 @@ router.post("/", async (req, res) => {
                 console.log(newdata);
 
             }
+            const result = {
+                msg : "data saved successfully",
+                status : 200
+            }
+            res.status(JSON.stringify(result)).redirect("/auth/imgverify");
         }
         else {
             res.status(401).send("not authorized");
