@@ -7,9 +7,10 @@ const userName = document.getElementById("username");
 const userAge = document.getElementById("userage");
 const dist = document.getElementById("distance");
 
-//getting user data 
+//getting user data
 
 const getUser = () => {
+<<<<<<< HEAD
     fetch('/api/userpic', {
         method: 'POST',
         headers: {
@@ -26,42 +27,75 @@ const getUser = () => {
         currUser = fres.userid;
         dist.innerHTML = fres.distance;
     });
+=======
+  fetch('/api/userpic', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      number: "number"
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    // console.log(fres);
+    showUserPic.src = fres.imgurl;
+    userName.innerHTML = fres.name;
+    userAge.innerHTML = fres.age;
+    currUser = fres.userid;
+    dist.innerHTML = fres.distance;
+  });
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 }
 
 //liking the user
 const addUsertolikedList = async () => {
+<<<<<<< HEAD
     fetch('/api/likeuser', {
+=======
+  fetch('/api/likeuser', {
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ userid: currUser })
-    }).then((res) => {
-        return res.json();
-    }).then((fres) => {
-        console.log(fres);
-    });
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      userid: currUser
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    console.log(fres);
+  });
 }
 
 //superliking the user
 const addUsertosuperlikedList = async () => {
+<<<<<<< HEAD
     fetch('/api/superlikeuser', {
+=======
+  fetch('/api/superlikeuser', {
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ userid: currUser })
-    }).then((res) => {
-        return res.json();
-    }).then((fres) => {
-        console.log(fres);
-    });
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      userid: currUser
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    console.log(fres);
+  });
 }
 
 //saving the viewed user
 const saveUser = async () => {
+<<<<<<< HEAD
     fetch('/api/saveuser', {
         method: 'POST',
         headers: {
@@ -93,6 +127,43 @@ const previousUser = async () => {
         dist.innerHTML = fres.distance;
         currUser = fres.userid;
     });
+=======
+  fetch('/api/saveuser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      userid: currUser
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    console.log(fres);
+  });
+}
+
+//getting previous user
+const previousUser = async () => {
+  fetch('/api/getprevioususer', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      number: "number"
+    })
+  }).then((res) => {
+    return res.json();
+  }).then((fres) => {
+    // console.log(fres);
+    showUserPic.src = fres.imgurl;
+    userName.innerHTML = fres.name;
+    userAge.innerHTML = fres.age;
+    dist.innerHTML = fres.distance;
+    currUser = fres.userid;
+  });
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 }
 
 //sending the location to the server (sos)
@@ -143,6 +214,7 @@ const sendMail = async () => {
 getUser();
 
 //function calling on keyboard key press
+<<<<<<< HEAD
 document.addEventListener("keydown", function (event) {
     const key = event.key;
     console.log(key);
@@ -150,33 +222,62 @@ document.addEventListener("keydown", function (event) {
         likeUser();
     if (key == "ArrowLeft")
         skipUser();
+=======
+document.addEventListener("keydown", function(event) {
+  const key = event.key;
+  console.log(key);
+  if (key == "ArrowRight")
+    likeUser();
+  if (key == "ArrowLeft")
+    skipUser();
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 });
 
 //when we skip the user
 const skipUser = async () => {
+<<<<<<< HEAD
     await saveUser();
     getUser();
     console.log(`you skip the user : ${currUser}`);
+=======
+  await saveUser();
+  getUser();
+  console.log(`you skip the user : ${currUser}`);
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 }
 
 
 //when we like the user
 const likeUser = async () => {
+<<<<<<< HEAD
     await addUsertolikedList();
     await saveUser();
     await getUser();
 
     console.log(`you liked the user : ${currUser}`);
     console.log("now you can go ahead");
+=======
+  await addUsertolikedList();
+  await saveUser();
+  await getUser();
+
+  console.log(`you liked the user : ${currUser}`);
+  console.log("now you can go ahead");
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 }
 
 //when we press the undo key
 const undo = async () => {
+<<<<<<< HEAD
     previousUser();
+=======
+  previousUser();
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 }
 
 //when we press the superlike key
 const superlikeuser = async () => {
+<<<<<<< HEAD
     console.log("super like button is pressed");
     await addUsertolikedList();
     await addUsertosuperlikedList();
@@ -192,4 +293,12 @@ const sendsos = async () => {
     sendMail();
     setInterval(function () { sendlocation(); }, 10000);
 }
+=======
+  console.log("super like button is pressed");
+  await addUsertolikedList();
+  await addUsertosuperlikedList();
+  await saveUser();
+  getUser();
+>>>>>>> 4dff19bd12fdb79a35b2e6ca27d8457227241a06
 
+}

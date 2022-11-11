@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Room</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/styles_call/main.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/styles_call/lobby.css'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header id="nav">
+    <div class="nav--list">
+
+      <h3 id="logo">
+        <img src="/images_call/tinder.png" alt="Site Logo">
+        <span>Cupit</span>
+      </h3>
+      
+    </div>
+  </header>
+
+  <main id="room__lobby__container">
+    <div id="form__container">
+      <div id="form__container__header">
+        <p>👋 Create or Join Room</p>
+      </div>
+
+
+      <form id="lobby__form">
+
+        <div class="form__field__wrapper">
+          <label>Your Name</label>
+          <input type="text" autocomplete="off" name="name" required placeholder="Enter your display name..." />
+        </div>
+
+        <div class="form__field__wrapper">
+          <label>Room Name</label>
+          <input id="emo-text" type="text" autocomplete="off" name="room" required placeholder="Enter room name..." />
+
+        </div>
+
+        <div class="form__field__wrapper">
+          <button type="submit">Go to Room
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+</body>
+<script type="text/javascript" src="/js_call/lobby.js"></script>
+<script type="text/javascript" src="/js_call/lock.js"></script>
+<!-- <script type="text/javascript" src="js/Emoji.js"></script>
+<script type="text/javascript">
+new EmojiPicker({
+  trigger:[
+    {
+      insertInto:['#emo-text'],
+      selector:'.emo'
+    }
+  ],
+  closeButton:true,
+  dragButton:true
+})
+</script> -->
+</html>
