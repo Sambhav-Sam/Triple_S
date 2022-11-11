@@ -10,8 +10,13 @@ router.get("/",passport.authenticate('google',{
 }));
 
 //callback route for google to redirect
-router.get("/redirect", passport.authenticate('google'),(req,res)=>{
-    res.send("you reached the callback URI");
+router.get("/redirect", passport.authenticate('google'), async(req,res)=>{
+    const token = await createToken(req.user._id);
+    res.cookie("jwt", token, {
+        expires: new Date(Date.now() + 6000000),
+        httpOnly: true
+    });
+    res.redirect("/buildprofile/userdetails");
 });
 
 module.exports = router;

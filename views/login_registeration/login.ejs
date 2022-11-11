@@ -41,12 +41,12 @@
               <input type="password" placeholder="Confirm Password" name="confirmPassword" required="true">
               <div class="signup_btn">
                 <input class="signup_button" type="submit" value="Sign Up">
-                <input class="signup_button2" type="submit" value="Sign Up With Google">
               </div>
               <p class="signup">
                 Already have an account?
                 <a href="#" onclick="toggleForm()">Sign in.</a>
               </p>
+              <button class="signup_button2" onclick="googleAuth()">Sign Up With Google</button>
             </form>
           </div>
           <div class="imgBx">
@@ -65,6 +65,11 @@
           container.classList.toggle('active');
           section.classList.toggle('active');
       }
+
+      const googleAuth = async () =>{
+        window.location.replace("http://localhost:3000/auth/google");
+      }
+
     </script>
   </body>
 </html>
