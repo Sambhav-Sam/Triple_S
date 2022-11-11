@@ -16,10 +16,10 @@
       <div class="left">
         <navbar class="navbar">
           <div class="space">
-            <div class="logo">
+            <div class="logo" onclick="showProfile()">
               <img src="https://avatars.dicebear.com/api/avataaars/<%=username%>.svg" alt="" />
             </div>
-            <div class="name">
+            <div class="name" onclick="showProfile()">
               <h3>
                 <%=username%>
               </h3>
@@ -45,12 +45,54 @@
         </navbar>
 
 <!-- user profile section ----------------------------------------------------  -->
-        <div>
-          
+        <div id ="userProfile" class="hide" >
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Buy Subscription @ 10</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+          </div>
+
+          <div id="match">
+            <div class="match" onclick="sendsos()">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Send Sos</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="match">
+            <a href="/auth/logout">
+            <div class="match">
+              <div class="match_info">
+                <div class="matched">
+                  <div class="match_name margin">
+                    <h3>Logout</h3>
+                  </div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+            </a>
+          </div>
         </div>
+<!-- ----------------------------------------------------------------------------------- -->
 
 <!-- main section --------------------------------------------------------  -->
-        <div class="main">
+        <div class="main" id="main">
           <div class="option">
             <button>
               <h4 class="active" id="matchwindow" onclick="matchwindow()">Matches</h4>

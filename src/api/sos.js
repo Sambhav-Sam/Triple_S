@@ -61,8 +61,7 @@ router.post("/setsos", async (req, res) => {
 });
 
 //it will send the mail to the matched users in the list
-//make get route to post
-router.get("/sendsosmail",async (req,res)=>{
+router.post("/sendsosmail",async (req,res)=>{
     try {
         //authenticating user
         const user = await isAuth(req);
@@ -114,7 +113,10 @@ router.get("/sendsosmail",async (req,res)=>{
                 soslink: link
             };
         await UserDetail.findOneAndUpdate(filter, update);
-        res.send('email send successfully');
+        const result = {
+            sent : 1
+        }
+        res.status(200).send(result);
 
 
     } catch (error) {

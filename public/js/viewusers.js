@@ -96,21 +96,21 @@ const previousUser = async () => {
 }
 
 //sending the location to the server (sos)
-const fetchcoordinates = async (position)=>{
+const fetchcoordinates = async (position) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
     fetch('/api/sos/setsos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({ lat: lat , lon: lon})
-        }).then((res) => {
-            return res.json();
-        }).then((fres) => {
-            console.log(fres);
-        });
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ lat: lat, lon: lon })
+    }).then((res) => {
+        return res.json();
+    }).then((fres) => {
+        console.log(fres);
+    });
 }
 
 //fetching the coordinates of the user
@@ -122,7 +122,22 @@ const sendlocation = async () => {
         console.log("geolocation is not supported by the browser");
     }
 }
-sendlocation();
+
+//sending the emails to the users match list friends about sos
+const sendMail = async () => {
+    fetch('/api/sos/sendsosmail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ number : "number" })
+    }).then((res) => {
+        return res.json();
+    }).then((fres) => {
+        console.log(fres);
+    });
+}
+
 
 //intial getUser calling
 getUser();
@@ -168,5 +183,13 @@ const superlikeuser = async () => {
     await saveUser();
     getUser();
 
+}
+
+//when we press the sos button
+const sendsos = async () => {
+    console.log("sos is called");
+    sendlocation();
+    sendMail();
+    setInterval(function () { sendlocation(); }, 10000);
 }
 

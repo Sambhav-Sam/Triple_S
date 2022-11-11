@@ -91,18 +91,28 @@ h2 {
     letter-spacing: 1px;
     font-weight: 300;
   }
-  
-  section .container .user .formBx input[type="submit"] {
-    max-width: 100px;
+
+  section .container .user .formBx input[type="submit"]{
     background: #677eff;
     color: #fff;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 1px;
+    margin-right: 10px;
     transition: 0.5s;
+    border-radius: 10px;
   }
-  
+  .signup_btn{
+    display: flex;
+    width: 100%;
+  }
+  .signup_button{
+    flex: 0.1;
+  }
+  .signup_button2{
+    flex: 0.7;
+  }
   section .container .user .formBx input[type="submit"] {
     background: #e73e49;
   }
