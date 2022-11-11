@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
         if (user) {
             const { fname, dob, gender, phone, Preference } = req.body;
             const jdob = new Date(dob);
+            console.log(jdob);
             //saving the files
             if (req.files) {
                 const file = req.files.image;
@@ -69,7 +70,7 @@ router.post("/", async (req, res) => {
                 const update = {
                     moreDetail: {
                         name: fname,
-                        dob: jdob,
+                        dob: dob,
                         gender: gender,
                         phone: phone,
                         preference: Preference
@@ -85,7 +86,7 @@ router.post("/", async (req, res) => {
                     suscribed : false,
                     moreDetail: {
                         name: fname,
-                        dob: jdob,
+                        dob: dob,
                         gender: gender,
                         phone: phone,
                         preference: Preference
