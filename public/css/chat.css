@@ -46,14 +46,25 @@ color:white;
   flex:0.1;
   background-color: white;
 } */
-
 .message{
+  width:100%;
+}
+.mess_i{
   background-color:white;
   width:fit-content;
   height:fit-content;
   padding:5px;
   margin:20px;
 }
+.mess_o{
+  background-color:white;
+  width:fit-content;
+  height:fit-content;
+  padding:5px;
+  margin:20px;
+  float:right;
+}
+
 
 .outgoing p{
   color:black;
@@ -68,6 +79,8 @@ color:white;
 .outgoing h3{
   color:red;
 }
+
+
 
 .incoming h3{
   margin:0px 10px;
@@ -164,4 +177,14 @@ i{
 }
 .final{
   display:flex;
+}
+
+.chat-btn{
+  position: absolute;
+  right:40px;
+}
+
+.chat-btn i{
+  margin-right:50px;
+  cursor:pointer;
 }

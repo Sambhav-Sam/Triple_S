@@ -74,6 +74,11 @@ app.get("/test2", async (req, res) => {
   }
 });
 
+
+app.get("/call/room.html",(req,res)=>{
+  res.sendFile(__dirname+"/room.html");
+})
+
 app.get("/working", async (req, res) => {
   try {
     const user = await isAuth(req);
@@ -97,6 +102,12 @@ var room;
 app.get("/chat/:roomId", (req, res) => {
   room = req.params.roomId;
   res.sendFile(__dirname + "/chat.html");
+});
+
+app.get("/call/:callid", (req, res) => {
+  console.log("callng");
+  room = req.params.roomId;
+  res.sendFile(__dirname + "/lobby.html");
 });
 
 
