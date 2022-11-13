@@ -21,7 +21,7 @@
 
     $(myCalendar).on('apply.daterangepicker', function(ev, picker) {
       isClick = 0;
-      $(this).val(picker.startDate.format('DD/MM/YYYY'));
+      $(this).val(picker.startDate.format('MM/DD/YYYY'));
 
     });
 
