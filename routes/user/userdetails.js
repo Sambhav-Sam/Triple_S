@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
         const user = await isAuth(req);
         if (user) {
             const { fname, dob, gender, phone, Preference } = req.body;
-
-
+            const jdob = new Date(dob);
+            console.log(jdob);
             //saving the files
             if (req.files) {
                 const file = req.files.image;

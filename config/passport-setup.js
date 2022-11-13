@@ -26,11 +26,6 @@ passport.use(new googleStrategy({
     const email = profile.emails[0].value;
     const password = randomstring.generate(20);
     const user = await createUser(username, email, password);
-    // const token = await createToken(user._id);
-    // res.cookie("jwt", token, {
-    //     expires: new Date(Date.now() + 6000000),
-    //     httpOnly: true
-    // });
     const filter = {
         _id: user._id
     }
