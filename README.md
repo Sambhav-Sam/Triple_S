@@ -35,7 +35,7 @@ Cupit - Avishkar Project
   <li><a href="https://drive.google.com/file/d/1iq0CVDVdPfu9gvrlH6pvoRKNgTuiA5dK/view?usp=sharing" target="_blank">View PDF</a></li>
   </ul>
   
- #Gallery
+ # Gallery
  ![image](https://user-images.githubusercontent.com/94921996/230766790-c9f54954-2a32-4b3d-8a43-2dbe17fad75b.png)
 ![image](https://user-images.githubusercontent.com/94921996/230766804-881d015a-07a3-4c1b-a2aa-32548aec4abf.png)
 ![image](https://user-images.githubusercontent.com/94921996/230766822-0a058577-7b88-47fb-93a7-3af532a948f5.png)
