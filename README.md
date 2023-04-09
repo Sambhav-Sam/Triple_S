@@ -1,5 +1,5 @@
-# Triple_S
-Cupit - Avishkar Project
+# Cupit
+Avishkar Project
 
 # CUPIT(THE MATCH MAKER)
 <p>Cupit is a platform for dating, and you can use it for social networking as well. The first step in creating a Cupit profile is creating a good Cupit bio followed by the power of selecting and deselecting the potential matches.If you think it’s same like tinder then you are absolutely correct. But we tried to include all the features which tinder already provides, also some extra which is mentioned in the later half of our presentation.
